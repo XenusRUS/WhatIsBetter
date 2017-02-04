@@ -1,0 +1,6 @@
+framework module Pods_WhatIsBetterTests {
+  umbrella header "Pods-WhatIsBetterTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
