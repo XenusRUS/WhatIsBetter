@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		404B9A0BB673FD4D7EBE3B28 /* Pods_WhatIsBetterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */; };
 		7950662B3D5892EE39B9CDD3 /* Pods_WhatIsBetter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */; };
+		84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F081E54534D0098CA44 /* RegistrationViewController.swift */; };
+		84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84359F0A1E5455380098CA44 /* no-avatar.gif */; };
+		84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */; };
+		84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F101E545EFB0098CA44 /* NavigationViewController.swift */; };
 		84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E3F1E41DB590012FF07 /* AppDelegate.swift */; };
 		84725E421E41DB590012FF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E411E41DB590012FF07 /* ViewController.swift */; };
 		84725E451E41DB590012FF07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84725E431E41DB590012FF07 /* Main.storyboard */; };
@@ -16,6 +20,18 @@
 		84725E4A1E41DB590012FF07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84725E481E41DB590012FF07 /* LaunchScreen.storyboard */; };
 		84725E551E41DB590012FF07 /* WhatIsBetterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E541E41DB590012FF07 /* WhatIsBetterTests.swift */; };
 		84725E601E41DB590012FF07 /* WhatIsBetterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E5F1E41DB590012FF07 /* WhatIsBetterUITests.swift */; };
+		849EE5521E52D31A00F15D46 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 849EE5501E52D31A00F15D46 /* login.png */; };
+		849EE5531E52D31A00F15D46 /* password.png in Resources */ = {isa = PBXBuildFile; fileRef = 849EE5511E52D31A00F15D46 /* password.png */; };
+		84B0B8271E5C111100980EF4 /* navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B8261E5C111100980EF4 /* navigation.png */; };
+		84B0B8301E5C17A500980EF4 /* PostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */; };
+		84B0B8311E5C17A500980EF4 /* PostFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */; };
+		84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */; };
+		84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299941E5843A400D02228 /* ProfileViewControlller.swift */; };
+		84D299991E5846D300D02228 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299981E5846D300D02228 /* FeedViewController.swift */; };
+		84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2999A1E585D2600D02228 /* SideMenuTableView.swift */; };
+		84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3E91E5D748D008AB4A4 /* no-image.gif */; };
+		84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */; };
+		84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3ED1E5DA601008AB4A4 /* change_password.png */; };
 		CF9B540344744C92378BB76D /* Pods_WhatIsBetterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DCBD6D066E6693102A43C3 /* Pods_WhatIsBetterTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +58,10 @@
 		42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7671866E6AD1B944784C606C /* Pods-WhatIsBetterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetterUITests/Pods-WhatIsBetterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		84359F081E54534D0098CA44 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		84359F0A1E5455380098CA44 /* no-avatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-avatar.gif"; path = "images/no-avatar.gif"; sourceTree = "<group>"; };
+		84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
+		84359F101E545EFB0098CA44 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		84725E3C1E41DB590012FF07 /* WhatIsBetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatIsBetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84725E3F1E41DB590012FF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84725E411E41DB590012FF07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +75,18 @@
 		84725E5B1E41DB590012FF07 /* WhatIsBetterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhatIsBetterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84725E5F1E41DB590012FF07 /* WhatIsBetterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsBetterUITests.swift; sourceTree = "<group>"; };
 		84725E611E41DB590012FF07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849EE5501E52D31A00F15D46 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = login.png; path = images/login.png; sourceTree = "<group>"; };
+		849EE5511E52D31A00F15D46 /* password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = password.png; path = images/password.png; sourceTree = "<group>"; };
+		84B0B8261E5C111100980EF4 /* navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navigation.png; path = images/navigation.png; sourceTree = "<group>"; };
+		84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFeedTableViewCell.swift; sourceTree = "<group>"; };
+		84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostFeedTableViewCell.xib; sourceTree = "<group>"; };
+		84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		84D299941E5843A400D02228 /* ProfileViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControlller.swift; sourceTree = "<group>"; };
+		84D299981E5846D300D02228 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		84D2999A1E585D2600D02228 /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
+		84EFD3E91E5D748D008AB4A4 /* no-image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-image.gif"; path = "images/no-image.gif"; sourceTree = "<group>"; };
+		84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		84EFD3ED1E5DA601008AB4A4 /* change_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = change_password.png; path = images/change_password.png; sourceTree = "<group>"; };
 		96B176D8D0BC703EB039C22E /* Pods-WhatIsBetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetter/Pods-WhatIsBetter.debug.xcconfig"; sourceTree = "<group>"; };
 		C865D5BAEF82739DEF64B471 /* Pods-WhatIsBetterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetterUITests/Pods-WhatIsBetterUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CF635D7A7072D6903F157222 /* Pods-WhatIsBetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetter.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetter/Pods-WhatIsBetter.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				84725E3E1E41DB590012FF07 /* WhatIsBetter */,
+				849EE54F1E52D2ED00F15D46 /* Images */,
 				84725E531E41DB590012FF07 /* WhatIsBetterTests */,
 				84725E5E1E41DB590012FF07 /* WhatIsBetterUITests */,
 				84725E3D1E41DB590012FF07 /* Products */,
@@ -129,10 +162,20 @@
 			children = (
 				84725E3F1E41DB590012FF07 /* AppDelegate.swift */,
 				84725E411E41DB590012FF07 /* ViewController.swift */,
+				84359F081E54534D0098CA44 /* RegistrationViewController.swift */,
+				84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */,
+				84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */,
 				84725E431E41DB590012FF07 /* Main.storyboard */,
+				84D2999A1E585D2600D02228 /* SideMenuTableView.swift */,
+				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
+				84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */,
 				84725E461E41DB590012FF07 /* Assets.xcassets */,
 				84725E481E41DB590012FF07 /* LaunchScreen.storyboard */,
 				84725E4B1E41DB590012FF07 /* Info.plist */,
+				84359F101E545EFB0098CA44 /* NavigationViewController.swift */,
+				84D299981E5846D300D02228 /* FeedViewController.swift */,
+				84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */,
+				84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */,
 			);
 			path = WhatIsBetter;
 			sourceTree = "<group>";
@@ -153,6 +196,19 @@
 				84725E611E41DB590012FF07 /* Info.plist */,
 			);
 			path = WhatIsBetterUITests;
+			sourceTree = "<group>";
+		};
+		849EE54F1E52D2ED00F15D46 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				849EE5501E52D31A00F15D46 /* login.png */,
+				849EE5511E52D31A00F15D46 /* password.png */,
+				84359F0A1E5455380098CA44 /* no-avatar.gif */,
+				84B0B8261E5C111100980EF4 /* navigation.png */,
+				84EFD3E91E5D748D008AB4A4 /* no-image.gif */,
+				84EFD3ED1E5DA601008AB4A4 /* change_password.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		AA2366145C8B8D7DE5FDC6E5 /* Frameworks */ = {
@@ -284,9 +340,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */,
 				84725E4A1E41DB590012FF07 /* LaunchScreen.storyboard in Resources */,
+				84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */,
+				84B0B8271E5C111100980EF4 /* navigation.png in Resources */,
+				84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */,
+				849EE5521E52D31A00F15D46 /* login.png in Resources */,
+				849EE5531E52D31A00F15D46 /* password.png in Resources */,
 				84725E471E41DB590012FF07 /* Assets.xcassets in Resources */,
 				84725E451E41DB590012FF07 /* Main.storyboard in Resources */,
+				84B0B8311E5C17A500980EF4 /* PostFeedTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,8 +512,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */,
+				84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */,
+				84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */,
 				84725E421E41DB590012FF07 /* ViewController.swift in Sources */,
 				84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */,
+				84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */,
+				84B0B8301E5C17A500980EF4 /* PostFeedTableViewCell.swift in Sources */,
+				84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */,
+				84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */,
+				84D299991E5846D300D02228 /* FeedViewController.swift in Sources */,
+				84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +777,7 @@
 				84725E661E41DB590012FF07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84725E671E41DB590012FF07 /* Build configuration list for PBXNativeTarget "WhatIsBetterTests" */ = {
 			isa = XCConfigurationList;
@@ -713,6 +786,7 @@
 				84725E691E41DB590012FF07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84725E6A1E41DB590012FF07 /* Build configuration list for PBXNativeTarget "WhatIsBetterUITests" */ = {
 			isa = XCConfigurationList;
@@ -721,6 +795,7 @@
 				84725E6C1E41DB590012FF07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
