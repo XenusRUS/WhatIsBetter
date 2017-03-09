@@ -20,11 +20,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        Alamofire.request("http://127.0.0.1:8000/users/?format=json", method: .get, encoding: URLEncoding.default, headers: nil).responseJSON { response in
+        let parameters: [String: AnyObject] = [
+            "username" : "testiOS" as AnyObject,
+            "email" : "iosclient@apple.com" as AnyObject,
+            "password" : "1234" as AnyObject,
+            ]
+        
+        Alamofire.request("http://127.0.0.1:8000/users/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in
             print("original URL request", response.request)  // original URL request
             print("HTTP URL response", response.response) // HTTP URL response
             print("server data", response.data)     // server data
             print("result of serialization", response.result)   // result of response serialization
+            
+        
             
             if let JSON = response.result.value as? [String: Any] {
                 print("JSON: \(JSON)")
@@ -85,6 +93,8 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func registrationButton(_ sender: Any) {
+    }
 
 }
 
