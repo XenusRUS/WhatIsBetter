@@ -8,6 +8,8 @@
 
 import UIKit
 import SideMenu
+import Alamofire
+import KeychainSwift
 
 class FeedTableViewController: UITableViewController {
     @IBOutlet weak var postNameLabel: UILabel!
@@ -22,11 +24,17 @@ class FeedTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         setupSideMenu()
-        
         let nibName = UINib(nibName: "PostFeedTableViewCell", bundle:nil)
         self.tableView.register(nibName, forCellReuseIdentifier: "PostFeedTableViewCell")
+        tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
         
-            tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+            ]
+        
+        Alamofire.request("http://127.0.0.1:8000/users/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            debugPrint(response)
+        }
         
     }
 

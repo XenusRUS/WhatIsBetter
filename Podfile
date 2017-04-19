@@ -6,6 +6,7 @@ target 'WhatIsBetter' do
   use_frameworks!
  pod 'Alamofire', '~> 4.0’
 pod 'SideMenu'
+pod 'KeychainSwift'
 
   # Pods for WhatIsBetter
 

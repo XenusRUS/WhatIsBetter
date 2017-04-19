@@ -15,8 +15,8 @@ class SideMenuTableView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImage.layer.cornerRadius = 55.5;
-        avatarImage.layer.masksToBounds = true;
+        avatarImage.layer.cornerRadius = 55.5
+        avatarImage.layer.masksToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -1,15 +1,18 @@
 PODS:
   - Alamofire (4.2.0)
+  - KeychainSwift (7.0.0)
   - SideMenu (2.0.7)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - KeychainSwift
   - SideMenu
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  KeychainSwift: b6947435dd78cc442c64a84ae648dd0e871cf448
   SideMenu: c5d3c3bc855b96bc2059e0b1ec346ecb54e80447
 
-PODFILE CHECKSUM: 443d74b94b1fb4da0e9738667c9f28d3acdc31c0
+PODFILE CHECKSUM: 8b9e6b2c290d98706aad5643e7ed780c23fee4f5
 
 COCOAPODS: 1.2.0
