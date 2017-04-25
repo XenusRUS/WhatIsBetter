@@ -13,6 +13,7 @@
 		84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84359F0A1E5455380098CA44 /* no-avatar.gif */; };
 		84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */; };
 		84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F101E545EFB0098CA44 /* NavigationViewController.swift */; };
+		844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BEBF01EACE00F0014F990 /* PostViewController.swift */; };
 		84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E3F1E41DB590012FF07 /* AppDelegate.swift */; };
 		84725E421E41DB590012FF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E411E41DB590012FF07 /* ViewController.swift */; };
 		84725E451E41DB590012FF07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84725E431E41DB590012FF07 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		84359F0A1E5455380098CA44 /* no-avatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-avatar.gif"; path = "images/no-avatar.gif"; sourceTree = "<group>"; };
 		84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
 		84359F101E545EFB0098CA44 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		844BEBF01EACE00F0014F990 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		84725E3C1E41DB590012FF07 /* WhatIsBetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatIsBetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84725E3F1E41DB590012FF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84725E411E41DB590012FF07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				84725E411E41DB590012FF07 /* ViewController.swift */,
 				84359F081E54534D0098CA44 /* RegistrationViewController.swift */,
 				84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */,
+				844BEBF01EACE00F0014F990 /* PostViewController.swift */,
 				84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */,
 				84725E431E41DB590012FF07 /* Main.storyboard */,
 				84D2999A1E585D2600D02228 /* SideMenuTableView.swift */,
@@ -512,6 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */,
 				84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */,
 				84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */,
 				84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */,

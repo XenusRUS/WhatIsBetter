@@ -12,10 +12,19 @@ import Alamofire
 import KeychainSwift
 
 class FeedTableViewController: UITableViewController {
-    @IBOutlet weak var postNameLabel: UILabel!
+    var count = 0
+    var nameArr: NSMutableArray = []
+    var descriptionArr: NSMutableArray = []
+    var photoOneArr: NSMutableArray = []
+    var photoTwoArr: NSMutableArray = []
+    var resultOneArr: NSMutableArray = []
+    var resultTwoArr: NSMutableArray = []
+    var createdArr: NSMutableArray = []
+    var authorArr: NSMutableArray = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,10 +41,54 @@ class FeedTableViewController: UITableViewController {
             "Authorization": "Token \(KeychainSwift().get("token")!)",
             ]
         
-        Alamofire.request("http://127.0.0.1:8000/users/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            debugPrint(response)
-        }
+//        print(KeychainSwift().get("token")!)
+//        print("________--")
         
+        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            debugPrint(response)
+            
+            self.nameArr.removeAllObjects()
+            self.descriptionArr.removeAllObjects()
+            self.photoOneArr.removeAllObjects()
+            self.photoTwoArr.removeAllObjects()
+            self.resultOneArr.removeAllObjects()
+            self.resultTwoArr.removeAllObjects()
+            self.createdArr.removeAllObjects()
+            self.authorArr.removeAllObjects()
+                
+                if let JSON = response.result.value as? [String: Any] {
+                    print("JSON: \(JSON)")
+                    print("___________")
+                    
+                    self.count = JSON["count"] as! NSInteger
+                    for items in JSON["results"] as! NSArray {
+                        let itms = items as? [String:Any]
+                        
+//                        let location = itms?["description"] as! NSDictionary
+                        self.nameArr.add(itms?["name"] as Any)
+                        self.descriptionArr.add(itms?["description"] as Any)
+                        self.photoOneArr.add(itms?["photo1"] as Any)
+                        self.photoTwoArr.add(itms?["photo2"] as Any)
+                        self.resultOneArr.add(itms?["result1"] as Any)
+                        self.resultTwoArr.add(itms?["result2"] as Any)
+                        self.createdArr.add(itms?["created"] as Any)
+                        
+                        let authorLink = itms?["author"] as! NSString
+                        Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+//                                debugPrint(response)
+                            if let JSON = response.result.value as? [String: Any] {
+                                print("JSON: \(JSON)")
+                                print("____kok_______")
+                                
+                                self.authorArr.add(JSON["username"] as Any)
+                            }
+                        }
+//                        let q = self.authorArr
+                    }
+                    self.tableView.reloadData()
+                }
+
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,17 +121,39 @@ class FeedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return self.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! PostFeedTableViewCell
-
         // Configure the cell...
-        cell.titleLabel.text = "test"
+
+        cell.postNameLabel?.text = self.nameArr[indexPath.row] as? String
+        
+        let strurl1 = URL(string: photoOneArr[indexPath.row] as! String)
+        let dtinternet1 = try? Data(contentsOf: strurl1!)
+        cell.imageOne.image = UIImage(data: dtinternet1!)
+        
+        let strurl2 = URL(string: photoTwoArr[indexPath.row] as! String)
+        let dtinternet2 = try? Data(contentsOf: strurl2!)
+        cell.imageTwo.image = UIImage(data: dtinternet2!)
 
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? PostViewController {
+            let selectedRow = tableView.indexPathForSelectedRow!.row
+            destination.namePost = nameArr[selectedRow] as! String
+            destination.createdPost = createdArr[selectedRow] as! String
+            destination.descriptionPost = descriptionArr[selectedRow] as! String
+            destination.photoOnePost = photoOneArr[selectedRow] as! String
+            destination.photoTwoPost = photoTwoArr[selectedRow] as! String
+            destination.resultOnePost = resultOneArr[selectedRow] as! Float
+            destination.resultTwoPost = resultTwoArr[selectedRow] as! Float
+            destination.authorPost = authorArr[selectedRow] as! String
+        }
     }
  
 

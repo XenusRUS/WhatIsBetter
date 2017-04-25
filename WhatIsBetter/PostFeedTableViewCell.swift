@@ -17,7 +17,7 @@ class PostFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var titleHistoryLabel: UILabel!
     @IBOutlet weak var progressTwo: UIProgressView!
     @IBOutlet weak var progressOne: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var titleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,7 +25,6 @@ class PostFeedTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
