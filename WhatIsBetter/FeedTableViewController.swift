@@ -37,58 +37,7 @@ class FeedTableViewController: UITableViewController {
         self.tableView.register(nibName, forCellReuseIdentifier: "PostFeedTableViewCell")
         tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
         
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-            ]
-        
-//        print(KeychainSwift().get("token")!)
-//        print("________--")
-        
-        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            debugPrint(response)
-            
-            self.nameArr.removeAllObjects()
-            self.descriptionArr.removeAllObjects()
-            self.photoOneArr.removeAllObjects()
-            self.photoTwoArr.removeAllObjects()
-            self.resultOneArr.removeAllObjects()
-            self.resultTwoArr.removeAllObjects()
-            self.createdArr.removeAllObjects()
-            self.authorArr.removeAllObjects()
-                
-                if let JSON = response.result.value as? [String: Any] {
-                    print("JSON: \(JSON)")
-                    print("___________")
-                    
-                    self.count = JSON["count"] as! NSInteger
-                    for items in JSON["results"] as! NSArray {
-                        let itms = items as? [String:Any]
-                        
-//                        let location = itms?["description"] as! NSDictionary
-                        self.nameArr.add(itms?["name"] as Any)
-                        self.descriptionArr.add(itms?["description"] as Any)
-                        self.photoOneArr.add(itms?["photo1"] as Any)
-                        self.photoTwoArr.add(itms?["photo2"] as Any)
-                        self.resultOneArr.add(itms?["result1"] as Any)
-                        self.resultTwoArr.add(itms?["result2"] as Any)
-                        self.createdArr.add(itms?["created"] as Any)
-                        
-                        let authorLink = itms?["author"] as! NSString
-                        Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-//                                debugPrint(response)
-                            if let JSON = response.result.value as? [String: Any] {
-                                print("JSON: \(JSON)")
-                                print("____kok_______")
-                                
-                                self.authorArr.add(JSON["username"] as Any)
-                            }
-                        }
-//                        let q = self.authorArr
-                    }
-                    self.tableView.reloadData()
-                }
-
-        }
+        getData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,6 +58,55 @@ class FeedTableViewController: UITableViewController {
     
     @IBAction fileprivate func changeSwitch(_ switchControl: UISwitch) {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
+    }
+    
+    func getData() {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            debugPrint(response)
+            
+            self.nameArr.removeAllObjects()
+            self.descriptionArr.removeAllObjects()
+            self.photoOneArr.removeAllObjects()
+            self.photoTwoArr.removeAllObjects()
+            self.resultOneArr.removeAllObjects()
+            self.resultTwoArr.removeAllObjects()
+            self.createdArr.removeAllObjects()
+            self.authorArr.removeAllObjects()
+            
+            if let JSON = response.result.value as? [String: Any] {
+                print("JSON: \(JSON)")
+                print("___________")
+                
+                self.count = JSON["count"] as! NSInteger
+                for items in JSON["results"] as! NSArray {
+                    let itms = items as? [String:Any]
+                    
+                    self.nameArr.add(itms?["name"] as Any)
+                    self.descriptionArr.add(itms?["description"] as Any)
+                    self.photoOneArr.add(itms?["photo1"] as Any)
+                    self.photoTwoArr.add(itms?["photo2"] as Any)
+                    self.resultOneArr.add(itms?["result1"] as Any)
+                    self.resultTwoArr.add(itms?["result2"] as Any)
+                    self.createdArr.add(itms?["created"] as Any)
+                    
+                    let authorLink = itms?["author"] as! NSString
+                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        if let JSON = response.result.value as? [String: Any] {
+                            print("JSON: \(JSON)")
+                            print("____kok_______")
+                            
+                            self.authorArr.add(JSON["username"] as Any)
+                        }
+                    }
+                }
+                self.tableView.reloadData()
+            }
+            
+        }
     }
 
 
@@ -150,8 +148,8 @@ class FeedTableViewController: UITableViewController {
             destination.descriptionPost = descriptionArr[selectedRow] as! String
             destination.photoOnePost = photoOneArr[selectedRow] as! String
             destination.photoTwoPost = photoTwoArr[selectedRow] as! String
-            destination.resultOnePost = resultOneArr[selectedRow] as! Float
-            destination.resultTwoPost = resultTwoArr[selectedRow] as! Float
+            destination.resultOnePost = resultOneArr[selectedRow] as! NSInteger
+            destination.resultTwoPost = resultTwoArr[selectedRow] as! NSInteger
             destination.authorPost = authorArr[selectedRow] as! String
         }
     }

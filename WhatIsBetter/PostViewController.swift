@@ -15,8 +15,8 @@ class PostViewController: UIViewController {
     var authorPost: String!
     var photoOnePost: String!
     var photoTwoPost: String!
-    var resultOnePost: Float!
-    var resultTwoPost: Float!
+    var resultOnePost: NSInteger!
+    var resultTwoPost: NSInteger!
     var createdPost: String!
     
 
@@ -26,6 +26,8 @@ class PostViewController: UIViewController {
     @IBOutlet weak var photoOneImage: UIImageView!
     @IBOutlet weak var photoTwoImage: UIImageView!
     @IBOutlet weak var authorLabel: UIButton!
+    @IBOutlet weak var countOneLabel: UILabel!
+    @IBOutlet weak var countTwoLabel: UILabel!
     @IBOutlet weak var resultOneBar: UIProgressView!
     @IBOutlet weak var resultTwoBar: UIProgressView!
     
@@ -33,21 +35,8 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        titleLabel.text = namePost
-        createdLabel.text = createdPost
-        descriptionText.text = descriptionPost
-        authorLabel.setTitle(authorPost, for: .normal)
-        resultOneBar.progress = resultOnePost/100
-        resultTwoBar.progress = resultTwoPost/100
-        
-        let strurl1 = URL(string: photoOnePost!)
-        let dtinternet1 = try? Data(contentsOf: strurl1!)
-        photoOneImage.image = UIImage(data: dtinternet1!)
-        
-        let strurl2 = URL(string: photoTwoPost!)
-        let dtinternet2 = try? Data(contentsOf: strurl2!)
-        photoTwoImage.image = UIImage(data: dtinternet2!)
+        setupSideMenu()
+        showData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +57,45 @@ class PostViewController: UIViewController {
     
     @IBAction fileprivate func changeSwitch(_ switchControl: UISwitch) {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
+    }
+    
+    func showData() {
+        titleLabel.text = namePost
+        descriptionText.text = descriptionPost
+        authorLabel.setTitle(authorPost, for: .normal)
+        countOneLabel.text = String(resultOnePost)
+        countTwoLabel.text = String(resultTwoPost)
+        resultOneBar.progress = Float(resultOnePost)/Float((resultOnePost+resultTwoPost))
+        resultTwoBar.progress = Float(resultTwoPost)/Float((resultOnePost+resultTwoPost))
+        
+        //format date and time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy' 'HH:mm:ss"
+        
+        let stringToDate = dateFromStringConverter(date: createdPost)
+        let dateString = dateFormatter.string(from:stringToDate! as Date)
+        createdLabel.text = dateString
+        
+        //image 1
+        let strurl1 = URL(string: photoOnePost!)
+        let dtinternet1 = try? Data(contentsOf: strurl1!)
+        photoOneImage.image = UIImage(data: dtinternet1!)
+        
+        //image 2
+        let strurl2 = URL(string: photoTwoPost!)
+        let dtinternet2 = try? Data(contentsOf: strurl2!)
+        photoTwoImage.image = UIImage(data: dtinternet2!)
+    }
+    
+    func dateFromStringConverter(date: String)-> NSDate? {
+        //Create Date Formatter
+        let dateFormatter = DateFormatter()
+        //Specify Format of String to Parse
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
+        //Parse into NSDate
+        let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
+        
+        return dateFromString
     }
     
 
