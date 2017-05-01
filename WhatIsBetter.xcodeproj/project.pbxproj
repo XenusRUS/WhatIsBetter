@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		404B9A0BB673FD4D7EBE3B28 /* Pods_WhatIsBetterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */; };
 		7950662B3D5892EE39B9CDD3 /* Pods_WhatIsBetter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */; };
+		84112F581EB20B75006A9EB4 /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84112F571EB20B75006A9EB4 /* AddPostViewController.swift */; };
 		84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F081E54534D0098CA44 /* RegistrationViewController.swift */; };
 		84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84359F0A1E5455380098CA44 /* no-avatar.gif */; };
 		84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */; };
 		84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F101E545EFB0098CA44 /* NavigationViewController.swift */; };
+		844A49D91EB4DEA500EB71ED /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 844A49D81EB4DEA500EB71ED /* upload.png */; };
 		844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BEBF01EACE00F0014F990 /* PostViewController.swift */; };
 		84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E3F1E41DB590012FF07 /* AppDelegate.swift */; };
 		84725E421E41DB590012FF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E411E41DB590012FF07 /* ViewController.swift */; };
@@ -59,10 +61,12 @@
 		42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7671866E6AD1B944784C606C /* Pods-WhatIsBetterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetterUITests/Pods-WhatIsBetterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		84112F571EB20B75006A9EB4 /* AddPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		84359F081E54534D0098CA44 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		84359F0A1E5455380098CA44 /* no-avatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-avatar.gif"; path = "images/no-avatar.gif"; sourceTree = "<group>"; };
 		84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
 		84359F101E545EFB0098CA44 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		844A49D81EB4DEA500EB71ED /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upload.png; path = images/upload.png; sourceTree = "<group>"; };
 		844BEBF01EACE00F0014F990 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		84725E3C1E41DB590012FF07 /* WhatIsBetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatIsBetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84725E3F1E41DB590012FF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,10 +171,11 @@
 				84359F081E54534D0098CA44 /* RegistrationViewController.swift */,
 				84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */,
 				844BEBF01EACE00F0014F990 /* PostViewController.swift */,
+				84112F571EB20B75006A9EB4 /* AddPostViewController.swift */,
+				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
 				84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */,
 				84725E431E41DB590012FF07 /* Main.storyboard */,
 				84D2999A1E585D2600D02228 /* SideMenuTableView.swift */,
-				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
 				84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */,
 				84725E461E41DB590012FF07 /* Assets.xcassets */,
 				84725E481E41DB590012FF07 /* LaunchScreen.storyboard */,
@@ -210,6 +215,7 @@
 				84B0B8261E5C111100980EF4 /* navigation.png */,
 				84EFD3E91E5D748D008AB4A4 /* no-image.gif */,
 				84EFD3ED1E5DA601008AB4A4 /* change_password.png */,
+				844A49D81EB4DEA500EB71ED /* upload.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844A49D91EB4DEA500EB71ED /* upload.png in Resources */,
 				84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */,
 				84725E4A1E41DB590012FF07 /* LaunchScreen.storyboard in Resources */,
 				84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */,
@@ -519,6 +526,7 @@
 				84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */,
 				84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */,
 				84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */,
+				84112F581EB20B75006A9EB4 /* AddPostViewController.swift in Sources */,
 				84725E421E41DB590012FF07 /* ViewController.swift in Sources */,
 				84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */,
 				84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */,

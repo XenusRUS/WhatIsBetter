@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let token = KeychainSwift().get("token")
+        if token != nil {
+            // mainStoryboard
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // rootViewController
+            let rootViewController = mainStoryboard.instantiateViewController(withIdentifier: "feedVC")
+            
+            // navigationController
+            let navigationController = UINavigationController(rootViewController: rootViewController)
+            navigationController.isNavigationBarHidden = false // or not, your choice.
+            
+            // self.window
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window!.rootViewController = navigationController
+            self.window!.makeKeyAndVisible()
+        }
+        
         return true
     }
 

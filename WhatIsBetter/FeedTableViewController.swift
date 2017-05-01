@@ -13,6 +13,7 @@ import KeychainSwift
 
 class FeedTableViewController: UITableViewController {
     var count = 0
+    var idArr: NSMutableArray = []
     var nameArr: NSMutableArray = []
     var descriptionArr: NSMutableArray = []
     var photoOneArr: NSMutableArray = []
@@ -24,6 +25,8 @@ class FeedTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(KeychainSwift().get("token")!)
+        print("yaibal")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
 
         // Uncomment the following line to preserve selection between presentations
@@ -66,16 +69,6 @@ class FeedTableViewController: UITableViewController {
         ]
         
         Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            debugPrint(response)
-            
-            self.nameArr.removeAllObjects()
-            self.descriptionArr.removeAllObjects()
-            self.photoOneArr.removeAllObjects()
-            self.photoTwoArr.removeAllObjects()
-            self.resultOneArr.removeAllObjects()
-            self.resultTwoArr.removeAllObjects()
-            self.createdArr.removeAllObjects()
-            self.authorArr.removeAllObjects()
             
             if let JSON = response.result.value as? [String: Any] {
                 print("JSON: \(JSON)")
@@ -85,6 +78,7 @@ class FeedTableViewController: UITableViewController {
                 for items in JSON["results"] as! NSArray {
                     let itms = items as? [String:Any]
                     
+                    self.idArr.add(itms?["id"] as Any)
                     self.nameArr.add(itms?["name"] as Any)
                     self.descriptionArr.add(itms?["description"] as Any)
                     self.photoOneArr.add(itms?["photo1"] as Any)
@@ -143,6 +137,7 @@ class FeedTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? PostViewController {
             let selectedRow = tableView.indexPathForSelectedRow!.row
+            destination.idPost = idArr[selectedRow] as! NSInteger
             destination.namePost = nameArr[selectedRow] as! String
             destination.createdPost = createdArr[selectedRow] as! String
             destination.descriptionPost = descriptionArr[selectedRow] as! String

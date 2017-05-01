@@ -8,8 +8,11 @@
 
 import UIKit
 import SideMenu
+import Alamofire
+import KeychainSwift
 
 class PostViewController: UIViewController {
+    var idPost: NSInteger!
     var namePost: String!
     var descriptionPost: String!
     var authorPost: String!
@@ -91,13 +94,26 @@ class PostViewController: UIViewController {
         //Create Date Formatter
         let dateFormatter = DateFormatter()
         //Specify Format of String to Parse
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
         //Parse into NSDate
         let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
         
         return dateFromString
     }
     
+    @IBAction func addTest(_ sender: Any) {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        let parameters: Parameters = [
+            "result1" : resultOnePost+1,
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(idPost!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            debugPrint(response)
+        }
+    }
 
     /*
     // MARK: - Navigation

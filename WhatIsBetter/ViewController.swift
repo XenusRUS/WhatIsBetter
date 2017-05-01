@@ -60,16 +60,23 @@ class ViewController: UIViewController {
                 
                 if let JSON = response.result.value as? [String: Any] {
                     print("JSON: \(JSON)")
-                    print("___________")
+                    print("____LOGIN_______")
                     
                     let token = JSON["token"] as! String
                     
+                    print(token)
+                    
                     let keychain = KeychainSwift()
                     keychain.set(token, forKey: "token")
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "naviFeed")
+                    self.present(controller, animated: true, completion: nil)
                 }
             }
             
         }
+
     }
 
     @IBAction func registrationButton(_ sender: Any) {

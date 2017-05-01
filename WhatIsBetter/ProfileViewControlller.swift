@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class ProfileViewControlller: ViewController {
     
@@ -22,6 +23,7 @@ class ProfileViewControlller: ViewController {
         // Do any additional setup after loading the view.
         avatarImageView.layer.cornerRadius = 75;
         avatarImageView.layer.masksToBounds = true;
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +31,14 @@ class ProfileViewControlller: ViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logout(_ sender: Any) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+        self.present(nextViewController, animated:true, completion:nil)
+        
+        KeychainSwift().delete("token")
+    }
 
     /*
     // MARK: - Navigation

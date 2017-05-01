@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WhatIsBetter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="BYZ-38-t0r" customClass="ViewController" customModule="WhatIsBetter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -63,7 +63,6 @@
                                 <state key="normal" title="Вход"/>
                                 <connections>
                                     <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vVT-IL-oW0"/>
-                                    <segue destination="OwP-nf-u3a" kind="show" id="WOS-AS-l3d"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaW-AR-XWg">
@@ -367,10 +366,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="105.69715142428787"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Post View Controller-->
         <scene sceneID="bM3-Sj-NXG">
             <objects>
-                <viewController id="T3R-8K-BvG" sceneMemberID="viewController">
+                <viewController id="T3R-8K-BvG" customClass="AddPostViewController" customModule="WhatIsBetter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kny-Sb-2RL"/>
                         <viewControllerLayoutGuide type="bottom" id="PCb-57-q95"/>
@@ -397,20 +396,51 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HPX-Ut-vf0">
-                                <rect key="frame" x="16" y="235" width="343" height="100"/>
+                                <rect key="frame" x="16" y="311" width="343" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcN-UA-Jkd">
-                                <rect key="frame" x="126" y="343" width="122" height="30"/>
+                                <rect key="frame" x="126" y="419" width="122" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Создать опрос"/>
+                                <connections>
+                                    <action selector="confirmButton:" destination="T3R-8K-BvG" eventType="touchUpInside" id="oeG-o9-8OD"/>
+                                    <segue destination="fB8-qS-Efh" kind="show" id="MH6-EG-sjo"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Название:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnz-Op-UfB">
+                                <rect key="frame" x="16" y="230" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-g4-AUG">
+                                <rect key="frame" x="102" y="225" width="257" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Описание:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5x-mZ-0Y2">
+                                <rect key="frame" x="16" y="276" width="85" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptionPost" destination="HPX-Ut-vf0" id="HmO-aE-iRs"/>
+                        <outlet property="namePost" destination="ee4-g4-AUG" id="wwf-O1-u65"/>
+                        <outlet property="photoOnePost" destination="r99-oZ-hq7" id="CZh-mu-yLl"/>
+                        <outlet property="photoTwoPost" destination="Vx8-iE-huj" id="KHZ-PP-MW1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZf-Ob-o4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -419,7 +449,7 @@
         <!--Feed-->
         <scene sceneID="f9f-dN-eYu">
             <objects>
-                <tableViewController id="fB8-qS-Efh" customClass="FeedTableViewController" customModule="WhatIsBetter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="feedVC" id="fB8-qS-Efh" customClass="FeedTableViewController" customModule="WhatIsBetter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="EGI-sC-YcZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -652,18 +682,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="no-avatar.gif" translatesAutoresizingMaskIntoConstraints="NO" id="gpL-2T-XGe">
+                                <rect key="frame" x="112" y="88" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FI6-iy-SqP">
+                                <rect key="frame" x="313" y="337" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Выход"/>
+                                <connections>
+                                    <action selector="logout:" destination="15J-Cv-qMd" eventType="touchUpInside" id="d84-gs-fgo"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u16-kE-bx5">
-                                <rect key="frame" x="128" y="337" width="118" height="30"/>
+                                <rect key="frame" x="16" y="337" width="118" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Сменить пароль"/>
                                 <connections>
                                     <segue destination="keQ-6D-MeH" kind="show" id="G5O-Gx-pI9"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="no-avatar.gif" translatesAutoresizingMaskIntoConstraints="NO" id="gpL-2T-XGe">
-                                <rect key="frame" x="112" y="88" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -749,7 +787,7 @@
         <!--Navigation Controller-->
         <scene sceneID="krS-yv-WVw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OwP-nf-u3a" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="naviFeed" automaticallyAdjustsScrollViewInsets="NO" id="OwP-nf-u3a" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2pN-6E-4S6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1106,6 +1144,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPe-NK-usJ">
                                 <rect key="frame" x="347" y="633" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addTest:" destination="Vja-wM-QSw" eventType="touchUpInside" id="avT-v6-5wV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlX-bg-AoV">
                                 <rect key="frame" x="5" y="250" width="180" height="19"/>
@@ -1301,6 +1342,6 @@
         <image name="password.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WOS-AS-l3d"/>
+        <segue reference="edJ-9i-AoI"/>
     </inferredMetricsTieBreakers>
 </document>
