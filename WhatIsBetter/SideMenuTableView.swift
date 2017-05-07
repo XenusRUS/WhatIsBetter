@@ -8,13 +8,17 @@
 
 import Foundation
 import SideMenu
+import Alamofire
+import KeychainSwift
 
 class SideMenuTableView: UITableViewController {
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getData()
         avatarImage.layer.cornerRadius = 55.5
         avatarImage.layer.masksToBounds = true
     }
@@ -33,4 +37,29 @@ class SideMenuTableView: UITableViewController {
         imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         tableView.backgroundView = imageView
     }
+    
+    func getData() {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                self.nameLabel.text = JSON["username"] as? String
+                
+                let userId = JSON["id"] as? NSInteger
+                let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                
+                Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    if let JSON = response.result.value as? [String: Any] {
+                        let avatarUrl = JSON["avatar"] as? String
+                        let strurl1 = URL(string: avatarUrl!)
+                        let dtinternet1 = try? Data(contentsOf: strurl1!)
+                        self.avatarImage.image = UIImage(data: dtinternet1!)
+                    }
+                }
+            }
+        }
+    }
+    
 }

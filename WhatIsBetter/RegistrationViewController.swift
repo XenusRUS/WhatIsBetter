@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import KeychainSwift
 
 class RegistrationViewController: UIViewController {
     
@@ -42,42 +43,25 @@ class RegistrationViewController: UIViewController {
         activityIndicator.startAnimating()
 
         
-        if usernameTextField.text == "" {
-            let alertController = UIAlertController(title: "Имя пользователя не введено!", message:"Введите имя пользователя", preferredStyle: UIAlertControllerStyle.alert)
+        if (emailTextField.text == "") || (passwordTextField.text == "") || (confirmPasswordTextField.text == "") || (usernameTextField.text == "") {
+            let alertController = UIAlertController(title: "Внимание", message:"Все поля обязательны к заполнению!", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
             activityIndicator.stopAnimating()
-        } else {
+        }
+        else {
             confirmRegistraion()
         }
         
-        if emailTextField.text == "" {
-            let alertController = UIAlertController(title: "Эл. почта не введена!", message:"Введите эл. почту", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            activityIndicator.stopAnimating()
-        } else {
-            confirmRegistraion()
-        }
-        
-        if passwordTextField.text == "" {
-            let alertController = UIAlertController(title: "Пароль не введен!", message:"Введите пароль", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            activityIndicator.stopAnimating()
-        } else {
-            confirmRegistraion()
-        }
-        
-        if confirmPasswordTextField.text != passwordTextField.text {
-            let alertController = UIAlertController(title: "Пароли не совпадают!", message:"Подтвердите пароль", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            activityIndicator.stopAnimating()
-            
-        } else {
-            confirmRegistraion()
-        }
+//        if confirmPasswordTextField.text != passwordTextField.text {
+//            let alertController = UIAlertController(title: "Пароли не совпадают!", message:"Подтвердите пароль", preferredStyle: UIAlertControllerStyle.alert)
+//            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+//            self.present(alertController, animated: true, completion: nil)
+//            activityIndicator.stopAnimating()
+//            
+//        } else {
+//            confirmRegistraion()
+//        }
     }
     
     func confirmRegistraion() {
@@ -86,12 +70,25 @@ class RegistrationViewController: UIViewController {
             "email" : emailTextField.text as AnyObject,
             "password" : passwordTextField.text as AnyObject,
             ]
-        Alamofire.request("http://127.0.0.1:8000/users/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in }
         
-        usernameTextField.text = ""
-        emailTextField.text = ""
-        passwordTextField.text = ""
-        confirmPasswordTextField.text = ""
+        let parameters2: [String: AnyObject] = [
+            "post_count" : 0 as AnyObject,
+            ]
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token 5a710ba7007dbf9f9b600dc207775d8e57d97278",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/users/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            Alamofire.request("http://127.0.0.1:8000/api/userprofile/", method: .post, parameters:parameters2, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+
+            }
+        }
+        
+//        usernameTextField.text = ""
+//        emailTextField.text = ""
+//        passwordTextField.text = ""
+//        confirmPasswordTextField.text = ""
         
 //        let alertController = UIAlertController(title: "Регистрация завершена!", message:"Вы успешно зарегистрированы", preferredStyle: UIAlertControllerStyle.alert)
 //        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))

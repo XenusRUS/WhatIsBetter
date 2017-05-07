@@ -18,12 +18,26 @@ class AddPostViewController: UIViewController {
     @IBOutlet weak var descriptionPost: UITextView!
     
     var authorPost:String!
+    var currentUser:String!
+    var points: NSInteger!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setupSideMenu()
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                print("JSON: \(JSON)")
+                print("____cur_______")
+                self.currentUser = JSON["url"] as! String
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +60,48 @@ class AddPostViewController: UIViewController {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
     
+    @IBAction func selectImageOne(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: "Choose your source", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("Camera selected")
+            //Code for Camera
+            //cameraf
+            let picker = UIImagePickerController()
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                
+                picker.allowsEditing = false
+                picker.sourceType = UIImagePickerControllerSourceType.camera
+                picker.cameraCaptureMode = .photo
+                picker.modalPresentationStyle = .fullScreen
+                self.present(picker,animated: true,completion: nil)
+            } else {
+                print("camera fail")
+            }
+        })
+        alert.addAction(UIAlertAction(title: "Photo library", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("Photo selected")
+            //Code for Photo library
+            //photolibaryss
+            let picker = UIImagePickerController()
+            picker.allowsEditing = false
+            picker.sourceType = .photoLibrary
+            picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            picker.modalPresentationStyle = .popover
+            self.present(picker, animated: true, completion: nil)
+            picker.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+        })
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func selectImageTwo(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(picker, animated: true, completion: nil)
+    }
+
     @IBAction func confirmButton(_ sender: Any) {
         let headers: HTTPHeaders = [
             "Authorization": "Token \(KeychainSwift().get("token")!)",
@@ -53,105 +109,56 @@ class AddPostViewController: UIViewController {
         
         let parameters: Parameters = [
             "name" : namePost.text!,
-//            "photo1" : "http://www.calvertgop.org/Darcey/images-misc/NoPicture.jpg",
-//            "photo2" : "http://www.calvertgop.org/Darcey/images-misc/NoPicture.jpg",
             "description" : descriptionPost.text!,
-            "result1" : 0,
-            "result2" : 0,
-            "author" : "http://127.0.0.1:8000/users/1/",
+            "author": self.currentUser,
             ]
         
-//        Alamofire.upload(multipartFormData: {
-//            multipartFormData in
-//            let imageData = UIImageJPEGRepresentation(self.photoOnePost.image!, 0.5)
-//            let imageData2 = UIImageJPEGRepresentation(self.photoTwoPost.image!, 0.5)
-//
-//                multipartFormData.append(imageData!, withName: "photo1", fileName: "file.gif", mimeType: "image/gif")
-//            multipartFormData.append(imageData2!, withName: "photo2", fileName: "file2.gif", mimeType: "image/gif")
-////            }
-////            if let imageData = UIImageJPEGRepresentation(self.photoOnePost.image!, 0.5){
-////                multipartFormData.append(imageData, withName: "photo2", fileName: "file2.gif", mimeType: "image/gif")
-////            }
-//            
-//            for (key,value) in parameters {
-//                multipartFormData.append((value as AnyObject).data!, withName: key)
-//            }
-//        }, to: "http://127.0.0.1:8000/api/posts/", method: .post, headers: headers, encodingCompletion: { encodingResult in
-//            switch encodingResult {
-//            case .success(let upload,_,_):
-//                upload.responseJSON { response in
-//                    
-//                    print(response.request)
-//                    print(response.response)
-//                    print(response.result)
-//                    print(response.data)
-//                }
-//                break
-//            case .failure(let encodingError):
-//                print("error: \(encodingError)")
-//                break
-//            }
-//        })
+            let imageData1 = UIImageJPEGRepresentation(photoOnePost.image!, 0.5)!
+            let imageData2 = UIImageJPEGRepresentation(photoTwoPost.image!, 0.5)!
         
-//        Alamofire.upload(multipartFormData: { multipartFormData in
-//            if let imageData = UIImageJPEGRepresentation(self.photoOnePost.image!, 1) {
-//                multipartFormData.append(imageData, withName: "file", fileName: "file.gif", mimeType: "image/gif")
-//            }
-//            
-//            for (key, value) in parameters {
-//                multipartFormData.append(((value as AnyObject).data)!, withName: key)
-//            }}, to: "http://127.0.0.1:8000/api/posts/", method: .post, headers: headers,
-//                encodingCompletion: { encodingResult in
-//                    switch encodingResult {
-//                    case .success(let upload, _, _):
-//                        upload.response { [weak self] response in
-//                            guard let strongSelf = self else {
-//                                return
-//                            }
-//                            debugPrint(response)
-//                        }
-//                    case .failure(let encodingError):
-//                        print("error:\(encodingError)")
-//                    }
-//        })
+            Alamofire.upload(multipartFormData: { multipartFormData in
+        
+                for (key, value) in parameters {
+                    if let data = (value as AnyObject).data(using: String.Encoding.utf8.rawValue) {
+                        multipartFormData.append(data, withName: key)
+                    }
+                }
     
+                multipartFormData.append(imageData1, withName: "photo1", fileName: "image1.gif", mimeType: "image/gif")
+                multipartFormData.append(imageData2, withName: "photo2", fileName: "image2.gif", mimeType: "image/gif")
         
-//        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-//            debugPrint(response)
-//        }
-//        
-//        print("start upload")
-//        
-//        let parametersImage = [
-//            "photo1": "no-image.gif",
-//            "photo2": "no-image.gif",
-//        ]
-//        
-//        Alamofire.upload(multipartFormData: { (multipartFormData) in
-//            multipartFormData.append(UIImageJPEGRepresentation(self.photoOnePost.image!, 1)!, withName: "photo_path", fileName: "no-image.gif", mimeType: "image/gif")
-//            for (key, value) in parametersImage {
-//                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
-//            }
-//        }, to:"http://127.0.0.1:8000/media/")
-//        { (result) in
-//            switch result {
-//            case .success(let upload, _, _):
-//                
-//                upload.uploadProgress(closure: { (progress) in
-//                    //Print progress
-//                })
-//                
-//                upload.responseJSON { response in
-//                    //print response.result
-//                }
-//                
-//            case .failure(let encodingError): break
-//                //print encodingError.description
-//            }
-//        }
-//        
-//        print("end upload")
-        
+            }, to: "http://127.0.0.1:8000/api/posts/", headers:headers, encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                        case .success(let upload, _, _):
+                        upload
+                        .validate()
+                        .responseJSON { response in
+                            switch response.result {
+                                case .success(let value):
+                                    //
+                                    let parameters: Parameters = [
+                                        "points" : self.points+4,
+                                        ]
+                                    Alamofire.request("http://127.0.0.1:8000/users/current/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                        if let JSON = response.result.value as? [String: Any] {
+                                            let userId = JSON["id"] as? NSInteger
+                                            let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                                            
+                                            Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                                
+                                            }
+                                        }
+                                    }
+                                    //
+                                    print("responseObject: \(value)")
+                                case .failure(let responseError):
+                                    print("responseError: \(responseError)")
+                            }
+                        }
+                                case .failure(let encodingError):
+                                        print("encodingError: \(encodingError)")
+                        }
+            })
     }
 
     /*

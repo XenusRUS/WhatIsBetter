@@ -21,6 +21,7 @@ class PostViewController: UIViewController {
     var resultOnePost: NSInteger!
     var resultTwoPost: NSInteger!
     var createdPost: String!
+    var points: NSInteger!
     
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -36,6 +37,9 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(self.points)
+        print("mda")
 
         // Do any additional setup after loading the view.
         setupSideMenu()
@@ -102,19 +106,85 @@ class PostViewController: UIViewController {
     }
     
     @IBAction func addTest(_ sender: Any) {
+        
+    }
+
+    @IBAction func chooseOne(_ sender: Any) {
         let headers: HTTPHeaders = [
             "Authorization": "Token \(KeychainSwift().get("token")!)",
         ]
         
         let parameters: Parameters = [
             "result1" : resultOnePost+1,
-        ]
+            ]
         
         Alamofire.request("http://127.0.0.1:8000/api/posts/\(idPost!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            debugPrint(response)
+            Alamofire.request("http://127.0.0.1:8000/api/posts/\(self.idPost!)/", method: .get, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                if let JSON = response.result.value as? [String: Any] {
+                    let countOne = JSON["result1"] as! NSInteger
+                    let countTwo = JSON["result2"] as! NSInteger
+                    self.countOneLabel.text = String(countOne)
+                    self.countTwoLabel.text = String(countTwo)
+                    
+                    self.resultOneBar.progress = Float(countOne)/Float((countOne+countTwo))
+                    self.resultTwoBar.progress = Float(countTwo)/Float((countOne+countTwo))
+                }
+            }
+            
+            let parameters: Parameters = [
+                "points" : self.points+1,
+                ]
+            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                if let JSON = response.result.value as? [String: Any] {
+                    let userId = JSON["id"] as? NSInteger
+                    let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                    
+                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+
+                    }
+                }
+            }
         }
     }
-
+    
+    @IBAction func chooseTwo(_ sender: Any) {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        let parameters: Parameters = [
+            "result2" : resultTwoPost+1,
+            ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(idPost!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            Alamofire.request("http://127.0.0.1:8000/api/posts/\(self.idPost!)/", method: .get, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                if let JSON = response.result.value as? [String: Any] {
+                    let countOne = JSON["result1"] as! NSInteger
+                    let countTwo = JSON["result2"] as! NSInteger
+                    self.countOneLabel.text = String(countOne)
+                    self.countTwoLabel.text = String(countTwo)
+                    
+                    self.resultOneBar.progress = Float(countOne)/Float((countOne+countTwo))
+                    self.resultTwoBar.progress = Float(countTwo)/Float((countOne+countTwo))
+                }
+            }
+            
+            let parameters: Parameters = [
+                "points" : self.points+1,
+                ]
+            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                if let JSON = response.result.value as? [String: Any] {
+                    let userId = JSON["id"] as? NSInteger
+                    let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                    
+                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        
+                    }
+                }
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

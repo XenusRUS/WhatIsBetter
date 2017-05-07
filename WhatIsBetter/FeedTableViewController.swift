@@ -22,6 +22,7 @@ class FeedTableViewController: UITableViewController {
     var resultTwoArr: NSMutableArray = []
     var createdArr: NSMutableArray = []
     var authorArr: NSMutableArray = []
+    var points: NSInteger!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,18 @@ class FeedTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+//        let headers: HTTPHeaders = [
+//            "Authorization": "Token \(KeychainSwift().get("token")!)",
+//        ]
+//
+        
         setupSideMenu()
         let nibName = UINib(nibName: "PostFeedTableViewCell", bundle:nil)
         self.tableView.register(nibName, forCellReuseIdentifier: "PostFeedTableViewCell")
         tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
         
         getData()
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,7 +104,20 @@ class FeedTableViewController: UITableViewController {
                         }
                     }
                 }
-                self.tableView.reloadData()
+                
+                Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    if let JSON = response.result.value as? [String: Any] {
+                        let userId = JSON["id"] as? NSInteger
+                        let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                        
+                        Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                            if let JSON = response.result.value as? [String: Any] {
+                                self.points = JSON["points"] as! NSInteger
+                            }
+                        }
+                    }
+                    self.tableView.reloadData()
+                }
             }
             
         }
@@ -146,6 +166,10 @@ class FeedTableViewController: UITableViewController {
             destination.resultOnePost = resultOneArr[selectedRow] as! NSInteger
             destination.resultTwoPost = resultTwoArr[selectedRow] as! NSInteger
             destination.authorPost = authorArr[selectedRow] as! String
+            destination.points = points
+        }
+        if let destination2 = segue.destination as? AddPostViewController {
+            destination2.points = points
         }
     }
  
