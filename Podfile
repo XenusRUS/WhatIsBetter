@@ -7,6 +7,7 @@ target 'WhatIsBetter' do
  pod 'Alamofire', '~> 4.0’
 pod 'SideMenu'
 pod 'KeychainSwift'
+pod 'KMPlaceholderTextView', '~> 1.3.0'
 
   # Pods for WhatIsBetter
 

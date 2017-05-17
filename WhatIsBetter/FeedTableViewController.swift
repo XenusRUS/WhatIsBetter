@@ -27,7 +27,6 @@ class FeedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(KeychainSwift().get("token")!)
-        print("yaibal")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
 
         // Uncomment the following line to preserve selection between presentations

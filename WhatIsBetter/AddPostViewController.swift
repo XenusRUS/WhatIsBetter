@@ -27,9 +27,35 @@ class AddPostViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupSideMenu()
         
+        descriptionPost.layer.borderColor = UIColor(red: 38/255, green: 51/255, blue: 70/255, alpha: 1.0).cgColor
+        descriptionPost.layer.borderWidth = 0.5
+        descriptionPost.layer.cornerRadius = 5
+        
         let headers: HTTPHeaders = [
             "Authorization": "Token \(KeychainSwift().get("token")!)",
         ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/userprofile/1/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let myPostsArray = JSON["posts"] as! NSArray
+                let postsArr = myPostsArray.mutableCopy() as! NSMutableArray
+//                let postsArr = NSMutableArray(array: myPostsArray)
+                postsArr.add("http://127.0.0.1:8000/api/posts/21/")
+                print(postsArr)
+                print("-__")
+                let postArray = ["http://127.0.0.1:8000/api/posts/20/", "http://127.0.0.1:8000/api/posts/21/"] as NSArray
+                
+                for postItems in postArray {
+                let parameters: Parameters = [
+                    "posts": postItems
+                ]
+                    Alamofire.request("http://127.0.0.1:8000/api/userprofile/1/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        
+                    }
+                }
+                
+            }
+        }
         
         Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             if let JSON = response.result.value as? [String: Any] {
@@ -44,7 +70,7 @@ class AddPostViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+   
     fileprivate func setupSideMenu() {
         // Define the menus
         SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
@@ -149,7 +175,6 @@ class AddPostViewController: UIViewController {
                                             }
                                         }
                                     }
-                                    //
                                     print("responseObject: \(value)")
                                 case .failure(let responseError):
                                     print("responseError: \(responseError)")

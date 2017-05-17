@@ -9,13 +9,34 @@
 /* Begin PBXBuildFile section */
 		404B9A0BB673FD4D7EBE3B28 /* Pods_WhatIsBetterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */; };
 		7950662B3D5892EE39B9CDD3 /* Pods_WhatIsBetter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */; };
+		8409FAEE1EBF61FE00EC066A /* CouponTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */; };
+		8409FAF11EBF64D500EC066A /* CouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */; };
+		8409FAF21EBF64D600EC066A /* CouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8409FAF01EBF64D500EC066A /* CouponTableViewCell.xib */; };
+		8409FAF41EBF6DCD00EC066A /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAF31EBF6DCD00EC066A /* CouponDetailViewController.swift */; };
 		84112F581EB20B75006A9EB4 /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84112F571EB20B75006A9EB4 /* AddPostViewController.swift */; };
 		84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F081E54534D0098CA44 /* RegistrationViewController.swift */; };
 		84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84359F0A1E5455380098CA44 /* no-avatar.gif */; };
 		84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */; };
 		84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F101E545EFB0098CA44 /* NavigationViewController.swift */; };
+		84410F601ECB39AB00F8E82E /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 84410F5F1ECB39AB00F8E82E /* key.png */; };
+		84421F1E1EC5EF0E00003D86 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84421F1D1EC5EF0E00003D86 /* CustomTextField.swift */; };
+		84421F221EC5FAA300003D86 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84421F211EC5FAA300003D86 /* logo.png */; };
+		84421F241EC5FCA000003D86 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 84421F231EC5FCA000003D86 /* email.png */; };
+		84421F261EC60B3500003D86 /* versus.png in Resources */ = {isa = PBXBuildFile; fileRef = 84421F251EC60B3500003D86 /* versus.png */; };
+		84421F2A1EC60D7800003D86 /* versus-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 84421F291EC60D7800003D86 /* versus-512.png */; };
+		84421F2C1EC6112900003D86 /* location-black-png-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 84421F2B1EC6112900003D86 /* location-black-png-10.png */; };
+		8447648A1EC768C20027C9A9 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 844764891EC768C20027C9A9 /* location.png */; };
+		8447648C1EC7695B0027C9A9 /* birthdate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447648B1EC7695B0027C9A9 /* birthdate.png */; };
+		8447648E1EC76B520027C9A9 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447648D1EC76B520027C9A9 /* logout.png */; };
+		844764901EC76C680027C9A9 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 8447648F1EC76C680027C9A9 /* edit.png */; };
+		844764921EC795100027C9A9 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844764911EC795100027C9A9 /* CommentTableViewCell.swift */; };
 		844A49D91EB4DEA500EB71ED /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 844A49D81EB4DEA500EB71ED /* upload.png */; };
 		844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BEBF01EACE00F0014F990 /* PostViewController.swift */; };
+		847165A11EC9C178005C8C83 /* discount.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659C1EC9C178005C8C83 /* discount.png */; };
+		847165A21EC9C178005C8C83 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659D1EC9C178005C8C83 /* help.png */; };
+		847165A31EC9C178005C8C83 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659E1EC9C178005C8C83 /* history.png */; };
+		847165A41EC9C178005C8C83 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659F1EC9C178005C8C83 /* list.png */; };
+		847165A51EC9C178005C8C83 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 847165A01EC9C178005C8C83 /* settings.png */; };
 		84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E3F1E41DB590012FF07 /* AppDelegate.swift */; };
 		84725E421E41DB590012FF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E411E41DB590012FF07 /* ViewController.swift */; };
 		84725E451E41DB590012FF07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84725E431E41DB590012FF07 /* Main.storyboard */; };
@@ -29,9 +50,12 @@
 		84B0B8301E5C17A500980EF4 /* PostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */; };
 		84B0B8311E5C17A500980EF4 /* PostFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */; };
 		84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */; };
+		84C312621EC883100044B1A8 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C312611EC883100044B1A8 /* send.png */; };
+		84C312641EC8859C0044B1A8 /* send-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C312631EC8859C0044B1A8 /* send-2.png */; };
 		84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299941E5843A400D02228 /* ProfileViewControlller.swift */; };
 		84D299991E5846D300D02228 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299981E5846D300D02228 /* FeedViewController.swift */; };
 		84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2999A1E585D2600D02228 /* SideMenuTableView.swift */; };
+		84D9CCB71EC3457C007303B2 /* MyCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */; };
 		84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3E91E5D748D008AB4A4 /* no-image.gif */; };
 		84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */; };
 		84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3ED1E5DA601008AB4A4 /* change_password.png */; };
@@ -61,13 +85,34 @@
 		42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7671866E6AD1B944784C606C /* Pods-WhatIsBetterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetterUITests/Pods-WhatIsBetterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponTableViewController.swift; sourceTree = "<group>"; };
+		8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponTableViewCell.swift; sourceTree = "<group>"; };
+		8409FAF01EBF64D500EC066A /* CouponTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponTableViewCell.xib; sourceTree = "<group>"; };
+		8409FAF31EBF6DCD00EC066A /* CouponDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponDetailViewController.swift; sourceTree = "<group>"; };
 		84112F571EB20B75006A9EB4 /* AddPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		84359F081E54534D0098CA44 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		84359F0A1E5455380098CA44 /* no-avatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-avatar.gif"; path = "images/no-avatar.gif"; sourceTree = "<group>"; };
 		84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
 		84359F101E545EFB0098CA44 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		84410F5F1ECB39AB00F8E82E /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = key.png; path = images/key.png; sourceTree = "<group>"; };
+		84421F1D1EC5EF0E00003D86 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		84421F211EC5FAA300003D86 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = images/logo.png; sourceTree = "<group>"; };
+		84421F231EC5FCA000003D86 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = email.png; path = images/email.png; sourceTree = "<group>"; };
+		84421F251EC60B3500003D86 /* versus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = versus.png; path = images/versus.png; sourceTree = "<group>"; };
+		84421F291EC60D7800003D86 /* versus-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "versus-512.png"; path = "images/versus-512.png"; sourceTree = "<group>"; };
+		84421F2B1EC6112900003D86 /* location-black-png-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location-black-png-10.png"; path = "images/location-black-png-10.png"; sourceTree = "<group>"; };
+		844764891EC768C20027C9A9 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = location.png; path = images/location.png; sourceTree = "<group>"; };
+		8447648B1EC7695B0027C9A9 /* birthdate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = birthdate.png; path = images/birthdate.png; sourceTree = "<group>"; };
+		8447648D1EC76B520027C9A9 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logout.png; path = images/logout.png; sourceTree = "<group>"; };
+		8447648F1EC76C680027C9A9 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = edit.png; path = images/edit.png; sourceTree = "<group>"; };
+		844764911EC795100027C9A9 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		844A49D81EB4DEA500EB71ED /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upload.png; path = images/upload.png; sourceTree = "<group>"; };
 		844BEBF01EACE00F0014F990 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		8471659C1EC9C178005C8C83 /* discount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = discount.png; path = images/navigation/discount.png; sourceTree = "<group>"; };
+		8471659D1EC9C178005C8C83 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/navigation/help.png; sourceTree = "<group>"; };
+		8471659E1EC9C178005C8C83 /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = history.png; path = images/navigation/history.png; sourceTree = "<group>"; };
+		8471659F1EC9C178005C8C83 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = list.png; path = images/navigation/list.png; sourceTree = "<group>"; };
+		847165A01EC9C178005C8C83 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = images/navigation/settings.png; sourceTree = "<group>"; };
 		84725E3C1E41DB590012FF07 /* WhatIsBetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatIsBetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84725E3F1E41DB590012FF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84725E411E41DB590012FF07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,9 +132,12 @@
 		84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFeedTableViewCell.swift; sourceTree = "<group>"; };
 		84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostFeedTableViewCell.xib; sourceTree = "<group>"; };
 		84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		84C312611EC883100044B1A8 /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = send.png; path = images/send.png; sourceTree = "<group>"; };
+		84C312631EC8859C0044B1A8 /* send-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "send-2.png"; path = "images/send-2.png"; sourceTree = "<group>"; };
 		84D299941E5843A400D02228 /* ProfileViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControlller.swift; sourceTree = "<group>"; };
 		84D299981E5846D300D02228 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		84D2999A1E585D2600D02228 /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
+		84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCouponsTableViewController.swift; sourceTree = "<group>"; };
 		84EFD3E91E5D748D008AB4A4 /* no-image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-image.gif"; path = "images/no-image.gif"; sourceTree = "<group>"; };
 		84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		84EFD3ED1E5DA601008AB4A4 /* change_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = change_password.png; path = images/change_password.png; sourceTree = "<group>"; };
@@ -140,6 +188,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8471659B1EC9C16B005C8C83 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				84410F5F1ECB39AB00F8E82E /* key.png */,
+				8471659C1EC9C178005C8C83 /* discount.png */,
+				8471659D1EC9C178005C8C83 /* help.png */,
+				8471659E1EC9C178005C8C83 /* history.png */,
+				8471659F1EC9C178005C8C83 /* list.png */,
+				847165A01EC9C178005C8C83 /* settings.png */,
+			);
+			name = navigation;
+			sourceTree = "<group>";
+		};
 		84725E331E41DB590012FF07 = {
 			isa = PBXGroup;
 			children = (
@@ -172,8 +233,11 @@
 				84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */,
 				844BEBF01EACE00F0014F990 /* PostViewController.swift */,
 				84112F571EB20B75006A9EB4 /* AddPostViewController.swift */,
-				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
 				84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */,
+				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
+				8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */,
+				8409FAF31EBF6DCD00EC066A /* CouponDetailViewController.swift */,
+				84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */,
 				84725E431E41DB590012FF07 /* Main.storyboard */,
 				84D2999A1E585D2600D02228 /* SideMenuTableView.swift */,
 				84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */,
@@ -184,6 +248,10 @@
 				84D299981E5846D300D02228 /* FeedViewController.swift */,
 				84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */,
 				84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */,
+				8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */,
+				8409FAF01EBF64D500EC066A /* CouponTableViewCell.xib */,
+				844764911EC795100027C9A9 /* CommentTableViewCell.swift */,
+				84421F1D1EC5EF0E00003D86 /* CustomTextField.swift */,
 			);
 			path = WhatIsBetter;
 			sourceTree = "<group>";
@@ -209,6 +277,17 @@
 		849EE54F1E52D2ED00F15D46 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8471659B1EC9C16B005C8C83 /* navigation */,
+				84C312611EC883100044B1A8 /* send.png */,
+				84C312631EC8859C0044B1A8 /* send-2.png */,
+				8447648F1EC76C680027C9A9 /* edit.png */,
+				8447648D1EC76B520027C9A9 /* logout.png */,
+				8447648B1EC7695B0027C9A9 /* birthdate.png */,
+				844764891EC768C20027C9A9 /* location.png */,
+				84421F2B1EC6112900003D86 /* location-black-png-10.png */,
+				84421F291EC60D7800003D86 /* versus-512.png */,
+				84421F251EC60B3500003D86 /* versus.png */,
+				84421F211EC5FAA300003D86 /* logo.png */,
 				849EE5501E52D31A00F15D46 /* login.png */,
 				849EE5511E52D31A00F15D46 /* password.png */,
 				84359F0A1E5455380098CA44 /* no-avatar.gif */,
@@ -216,6 +295,7 @@
 				84EFD3E91E5D748D008AB4A4 /* no-image.gif */,
 				84EFD3ED1E5DA601008AB4A4 /* change_password.png */,
 				844A49D81EB4DEA500EB71ED /* upload.png */,
+				84421F231EC5FCA000003D86 /* email.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -349,17 +429,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847165A11EC9C178005C8C83 /* discount.png in Resources */,
+				84C312641EC8859C0044B1A8 /* send-2.png in Resources */,
+				847165A41EC9C178005C8C83 /* list.png in Resources */,
+				84421F221EC5FAA300003D86 /* logo.png in Resources */,
 				844A49D91EB4DEA500EB71ED /* upload.png in Resources */,
 				84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */,
+				84C312621EC883100044B1A8 /* send.png in Resources */,
+				847165A21EC9C178005C8C83 /* help.png in Resources */,
+				847165A51EC9C178005C8C83 /* settings.png in Resources */,
+				84421F261EC60B3500003D86 /* versus.png in Resources */,
+				8447648A1EC768C20027C9A9 /* location.png in Resources */,
+				84421F2C1EC6112900003D86 /* location-black-png-10.png in Resources */,
+				847165A31EC9C178005C8C83 /* history.png in Resources */,
 				84725E4A1E41DB590012FF07 /* LaunchScreen.storyboard in Resources */,
+				8447648E1EC76B520027C9A9 /* logout.png in Resources */,
 				84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */,
 				84B0B8271E5C111100980EF4 /* navigation.png in Resources */,
+				84421F241EC5FCA000003D86 /* email.png in Resources */,
 				84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */,
 				849EE5521E52D31A00F15D46 /* login.png in Resources */,
 				849EE5531E52D31A00F15D46 /* password.png in Resources */,
+				844764901EC76C680027C9A9 /* edit.png in Resources */,
 				84725E471E41DB590012FF07 /* Assets.xcassets in Resources */,
+				8447648C1EC7695B0027C9A9 /* birthdate.png in Resources */,
 				84725E451E41DB590012FF07 /* Main.storyboard in Resources */,
 				84B0B8311E5C17A500980EF4 /* PostFeedTableViewCell.xib in Resources */,
+				84421F2A1EC60D7800003D86 /* versus-512.png in Resources */,
+				8409FAF21EBF64D600EC066A /* CouponTableViewCell.xib in Resources */,
+				84410F601ECB39AB00F8E82E /* key.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,15 +622,21 @@
 			files = (
 				844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */,
 				84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */,
+				8409FAF41EBF6DCD00EC066A /* CouponDetailViewController.swift in Sources */,
 				84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */,
 				84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */,
 				84112F581EB20B75006A9EB4 /* AddPostViewController.swift in Sources */,
 				84725E421E41DB590012FF07 /* ViewController.swift in Sources */,
+				8409FAF11EBF64D500EC066A /* CouponTableViewCell.swift in Sources */,
+				84421F1E1EC5EF0E00003D86 /* CustomTextField.swift in Sources */,
 				84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */,
+				8409FAEE1EBF61FE00EC066A /* CouponTableViewController.swift in Sources */,
 				84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */,
 				84B0B8301E5C17A500980EF4 /* PostFeedTableViewCell.swift in Sources */,
+				84D9CCB71EC3457C007303B2 /* MyCouponsTableViewController.swift in Sources */,
 				84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */,
 				84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */,
+				844764921EC795100027C9A9 /* CommentTableViewCell.swift in Sources */,
 				84D299991E5846D300D02228 /* FeedViewController.swift in Sources */,
 				84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */,
 			);

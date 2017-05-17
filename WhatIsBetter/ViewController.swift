@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var loginBtn: UIButton!
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
 
@@ -24,6 +25,19 @@ class ViewController: UIViewController {
         let headers: HTTPHeaders = [
             "Authorization": "Token 5a710ba7007dbf9f9b600dc207775d8e57d97278",
         ]
+//        view.backgroundColor = UIColor.brownColor();
+//        textField.text = "Some Text";
+//        emailField.backgroundColor = UIColor.brown;
+//        emailField.layer.borderWidth = 1.0;
+//        emailField.layer.cornerRadius = 16.0;
+////        emailField.leftView = UIView(frame: CGRectMake(0, 0, 5, 37));
+//        emailField.leftViewMode = UITextFieldViewMode.always;
+        
+//        emailField.leftViewMode = UITextFieldViewMode.always
+//        let loginImageView = UIImageView();
+//        loginImageView.image = UIImage(named: "login.png")
+//        emailField.leftView = loginImageView
+
     }
     
     override func didReceiveMemoryWarning() {

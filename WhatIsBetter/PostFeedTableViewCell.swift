@@ -15,6 +15,8 @@ class PostFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var imageTwo: UIImageView!
 
     @IBOutlet weak var titleHistoryLabel: UILabel!
+    @IBOutlet weak var imageOneHistory: UIImageView!
+    @IBOutlet weak var imageTwoHistory: UIImageView!
     @IBOutlet weak var progressTwo: UIProgressView!
     @IBOutlet weak var progressOne: UIView!
 //    @IBOutlet weak var titleLabel: UILabel!

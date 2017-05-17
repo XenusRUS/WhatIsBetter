@@ -7,8 +7,24 @@
 //
 
 import UIKit
+import SideMenu
+import Alamofire
+import KeychainSwift
 
 class HistoryTableViewController: UITableViewController {
+    var count = 0
+    var idArr: NSMutableArray = []
+    var nameArr: NSMutableArray = []
+    var descriptionArr: NSMutableArray = []
+    var photoOneArr: NSMutableArray = []
+    var photoTwoArr: NSMutableArray = []
+    var resultOneArr: NSMutableArray = []
+    var resultTwoArr: NSMutableArray = []
+    var createdArr: NSMutableArray = []
+    var authorArr: NSMutableArray = []
+    var points: NSInteger!
+    var currentId: NSInteger!
+    var userId: NSInteger!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +38,113 @@ class HistoryTableViewController: UITableViewController {
         self.tableView.register(nibName, forCellReuseIdentifier: "PostFeedTableViewCell")
         
         tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
+        
+        setupSideMenu()
+        
+        getData()
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    fileprivate func setupSideMenu() {
+        // Define the menus
+        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
+        SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
+        
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+    }
+    
+    func getData() {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            
+            if let JSON = response.result.value as? [String: Any] {
+                print("JSON: \(JSON)")
+                print("___________")
+                
+//                self.count = JSON["count"] as! NSInteger
+                for items in JSON["results"] as! NSArray {
+                    let itms = items as? [String:Any]
+                    
+//                    self.idArr.add(itms?["id"] as Any)
+//                    self.nameArr.add(itms?["name"] as Any)
+//                    self.descriptionArr.add(itms?["description"] as Any)
+//                    self.photoOneArr.add(itms?["photo1"] as Any)
+//                    self.photoTwoArr.add(itms?["photo2"] as Any)
+//                    self.resultOneArr.add(itms?["result1"] as Any)
+//                    self.resultTwoArr.add(itms?["result2"] as Any)
+//                    self.createdArr.add(itms?["created"] as Any)
+                    
+                    let authorLink = itms?["author"] as! NSString
+                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        if let JSON = response.result.value as? [String: Any] {
+                            print("JSON: \(JSON)")
+                            print("____kok_______")
+                            
+                            self.authorArr.add(JSON["username"] as Any)
+                        }
+                    }
+                }
+                
+                Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    if let JSON = response.result.value as? [String: Any] {
+                        let userId = JSON["id"] as? NSInteger
+                        let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                        
+                        Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                            if let JSON = response.result.value as? [String: Any] {
+                                self.points = JSON["points"] as! NSInteger
+                                
+                                let myPostsArray = JSON["posts"] as! NSArray
+                                for myPostsItems in myPostsArray {
+                                    Alamofire.request("\(myPostsItems)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                        if let JSON = response.result.value as? [String: Any] {
+                                            self.idArr.add(JSON["id"] as Any)
+                                            self.nameArr.add(JSON["name"] as Any)
+                                            self.descriptionArr.add(JSON["description"] as Any)
+                                            self.photoOneArr.add(JSON["photo1"] as Any)
+                                            self.photoTwoArr.add(JSON["photo2"] as Any)
+                                            self.resultOneArr.add(JSON["result1"] as Any)
+                                            self.resultTwoArr.add(JSON["result2"] as Any)
+                                            self.createdArr.add(JSON["created"] as Any)
+                                            
+                                            let authorLink = JSON["author"] as! NSString
+                                            Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                                if let JSON = response.result.value as? [String: Any] {
+                                                    print("JSON: \(JSON)")
+                                                    print("____kok_______")
+                                                    
+                                                    self.authorArr.add(JSON["username"] as Any)
+                                                    self.count = self.count+1
+                                                    
+                                                    self.tableView.reloadData()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+    }
+    
+    @IBAction fileprivate func changeSwitch(_ switchControl: UISwitch) {
+        SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
 
     // MARK: - Table view data source
@@ -38,17 +156,26 @@ class HistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return self.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! PostFeedTableViewCell
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! PostFeedTableViewCell
         // Configure the cell...
-        cell.titleHistoryLabel.text = "test"
-
+        
+        cell.titleHistoryLabel?.text = self.nameArr[indexPath.row] as? String
+        
+        let strurl1 = URL(string: photoOneArr[indexPath.row] as! String)
+        let dtinternet1 = try? Data(contentsOf: strurl1!)
+        cell.imageOneHistory.image = UIImage(data: dtinternet1!)
+        
+        let strurl2 = URL(string: photoTwoArr[indexPath.row] as! String)
+        let dtinternet2 = try? Data(contentsOf: strurl2!)
+        cell.imageTwoHistory.image = UIImage(data: dtinternet2!)
+        
         return cell
     }
+
 
     /*
     // Override to support conditional editing of the table view.

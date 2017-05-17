@@ -11,7 +11,7 @@ import SideMenu
 import Alamofire
 import KeychainSwift
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var idPost: NSInteger!
     var namePost: String!
     var descriptionPost: String!
@@ -23,6 +23,16 @@ class PostViewController: UIViewController {
     var createdPost: String!
     var points: NSInteger!
     
+    var countComment = 0
+    var idArr: NSMutableArray = []
+    var usernameArr: NSMutableArray = []
+    var avatarArr: NSMutableArray = []
+    var commentArr: NSMutableArray = []
+    var createdArr: NSMutableArray = []
+    
+    @IBOutlet weak var addCommentTextView: UITextView!
+    
+    @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var createdLabel: UILabel!
@@ -37,13 +47,29 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(self.points)
-        print("mda")
 
         // Do any additional setup after loading the view.
+        
+        loadComments()
+        
+        tableView.delegate = self
+        tableView.dataSource = self as? UITableViewDataSource
+        
         setupSideMenu()
         showData()
+        
+//        addCommentTextView.text = "Ваше сообщение"
+//        addCommentTextView.textColor = UIColor.lightGray
+        
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//
+//        gradient.colors = [UIColor.gray.cgColor, UIColor.purple.cgColor]
+//        gradient.locations = [0.0 , 1.0]
+//        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+//        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+//        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//        
+//        self.view.layer.insertSublayer(gradient, at: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,6 +125,17 @@ class PostViewController: UIViewController {
         let dateFormatter = DateFormatter()
         //Specify Format of String to Parse
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
+        //Parse into NSDate
+        let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
+        
+        return dateFromString
+    }
+    
+    func dateFromStringConverterShort(date: String)-> NSDate? {
+        //Create Date Formatter
+        let dateFormatter = DateFormatter()
+        //Specify Format of String to Parse
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
         //Parse into NSDate
         let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
         
@@ -185,6 +222,98 @@ class PostViewController: UIViewController {
         }
     }
     
+    func loadComments() {
+        let headers: HTTPHeaders = [
+            "Authorization": "Token \(KeychainSwift().get("token")!)",
+        ]
+        
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(String(self.idPost))/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let commentArray = JSON["comments"] as! NSArray
+                for commentItems in commentArray {
+                    print(commentItems)
+                    print("commentItems")
+                    Alamofire.request("\(commentItems)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                        if let JSON = response.result.value as? [String: Any] {
+                            print("JSON: \(JSON)")
+                            print("_____coup______")
+                            self.idArr.add(JSON["id"] as Any)
+                            self.commentArr.add(JSON["comment"] as Any)
+                            self.createdArr.add(JSON["created"] as Any)
+                            
+                            let user = JSON["user"] as! String
+                            let userString = String(describing: user)
+                            
+                            print(userString)
+                            print("comment")
+                            
+                            Alamofire.request("\(userString)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                if let JSON = response.result.value as? [String: Any] {
+                                    self.usernameArr.add(JSON["username"] as Any)
+                                    
+                                    self.tableView.reloadData()
+                                    
+                                    let userId = JSON["id"] as! NSInteger
+                                    let userIdString = String(describing: userId)
+                                    
+                                    Alamofire.request("http://127.0.0.1:8000/api/userprofile/\(userIdString)/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                        if let JSON = response.result.value as? [String: Any] {
+                                            self.avatarArr.add(JSON["avatar"] as Any)
+                                            
+                                            self.countComment = self.countComment+1
+                                            self.tableView.reloadData()
+                                        }
+//                                        self.tableView.reloadData()
+                                    }
+                                    
+                                    
+                                    
+                                }
+//                                self.tableView.reloadData()
+                            }
+                            
+//                            self.tableView.reloadData()
+                        }
+//                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Table view data source
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.countComment
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentTableViewCell
+        // Configure the cell...
+        
+        cell.usernameLabel?.text = self.usernameArr[indexPath.row] as? String
+        cell.commentText?.text = self.commentArr[indexPath.row] as? String
+//        cell.createdLabel?.text = self.createdArr[indexPath.row] as? String
+        
+        let strurl = URL(string: avatarArr[indexPath.row] as! String)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        cell.avatarImage.image = UIImage(data: dtinternet!)
+        
+        //format date and time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy' 'HH:mm:ss"
+        
+        let stringToDate = dateFromStringConverterShort(date: createdArr[indexPath.row] as! String)
+        let dateString = dateFormatter.string(from:stringToDate! as Date)
+        cell.createdLabel.text = dateString
+        
+        return cell
+    }
+
     /*
     // MARK: - Navigation
 
