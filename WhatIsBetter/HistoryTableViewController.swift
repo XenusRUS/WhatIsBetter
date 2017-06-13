@@ -13,18 +13,23 @@ import KeychainSwift
 
 class HistoryTableViewController: UITableViewController {
     var count = 0
-    var idArr: NSMutableArray = []
-    var nameArr: NSMutableArray = []
-    var descriptionArr: NSMutableArray = []
-    var photoOneArr: NSMutableArray = []
-    var photoTwoArr: NSMutableArray = []
-    var resultOneArr: NSMutableArray = []
-    var resultTwoArr: NSMutableArray = []
-    var createdArr: NSMutableArray = []
-    var authorArr: NSMutableArray = []
+//    var idArr: NSMutableArray = []
+//    var nameArr: NSMutableArray = []
+//    var descriptionArr: NSMutableArray = []
+//    var photoOneArr: NSMutableArray = []
+//    var photoTwoArr: NSMutableArray = []
+//    var resultOneArr: NSMutableArray = []
+//    var resultTwoArr: NSMutableArray = []
+//    var createdArr: NSMutableArray = []
+//    var authorArr: NSMutableArray = []
     var points: NSInteger!
     var currentId: NSInteger!
     var userId: NSInteger!
+    
+    var postObject : PostModel = PostModel()
+    var postArray: NSMutableArray = []
+    
+    let postsUrl = "http://127.0.0.1:8000/api/posts/"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +46,7 @@ class HistoryTableViewController: UITableViewController {
         
         setupSideMenu()
         
-        getData()
+        getData(post: postObject, postArray: postArray)
         self.tableView.reloadData()
     }
 
@@ -61,85 +66,60 @@ class HistoryTableViewController: UITableViewController {
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
     
-    func getData() {
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-        ]
+    func getCurrentUser(url: String) {
+        Alamofire.request(url, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let userId = JSON["id"] as? NSInteger
+                let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                
+                Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+                    if let JSON = response.result.value as? [String: Any] {
+                        self.points = JSON["points"] as! NSInteger
+                    }
+                }
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    func getImage(ImageUrl:String, imageView:UIImageView) -> UIImage {
+        let strurl = URL(string: ImageUrl)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        imageView.image = UIImage(data: dtinternet!)
         
-        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+        return imageView.image!
+    }
+    
+    func getData(post:PostModel, postArray:NSMutableArray) {
+        Alamofire.request(postsUrl, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
             
             if let JSON = response.result.value as? [String: Any] {
-                print("JSON: \(JSON)")
-                print("___________")
                 
-//                self.count = JSON["count"] as! NSInteger
+                self.count = JSON["count"] as! NSInteger
                 for items in JSON["results"] as! NSArray {
                     let itms = items as? [String:Any]
                     
-//                    self.idArr.add(itms?["id"] as Any)
-//                    self.nameArr.add(itms?["name"] as Any)
-//                    self.descriptionArr.add(itms?["description"] as Any)
-//                    self.photoOneArr.add(itms?["photo1"] as Any)
-//                    self.photoTwoArr.add(itms?["photo2"] as Any)
-//                    self.resultOneArr.add(itms?["result1"] as Any)
-//                    self.resultTwoArr.add(itms?["result2"] as Any)
-//                    self.createdArr.add(itms?["created"] as Any)
+                    post.id = itms?["id"] as! NSInteger
+                    post.title = itms?["name"] as! String
+                    post.desc = itms?["description"] as! String
+                    post.imageOne = itms?["photo1"] as! String
+                    post.imageTwo = itms?["photo2"] as! String
+                    post.resultOne = itms?["result1"] as! NSInteger
+                    post.resultTwo = itms?["result2"] as! NSInteger
+                    post.created = itms?["created"] as! String
+                    
+                    postArray.add(post)
                     
                     let authorLink = itms?["author"] as! NSString
-                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                         if let JSON = response.result.value as? [String: Any] {
-                            print("JSON: \(JSON)")
-                            print("____kok_______")
-                            
-                            self.authorArr.add(JSON["username"] as Any)
+                            post.author = JSON["author"] as! String
                         }
                     }
                 }
-                
-                Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                    if let JSON = response.result.value as? [String: Any] {
-                        let userId = JSON["id"] as? NSInteger
-                        let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
-                        
-                        Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                            if let JSON = response.result.value as? [String: Any] {
-                                self.points = JSON["points"] as! NSInteger
-                                
-                                let myPostsArray = JSON["posts"] as! NSArray
-                                for myPostsItems in myPostsArray {
-                                    Alamofire.request("\(myPostsItems)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                                        if let JSON = response.result.value as? [String: Any] {
-                                            self.idArr.add(JSON["id"] as Any)
-                                            self.nameArr.add(JSON["name"] as Any)
-                                            self.descriptionArr.add(JSON["description"] as Any)
-                                            self.photoOneArr.add(JSON["photo1"] as Any)
-                                            self.photoTwoArr.add(JSON["photo2"] as Any)
-                                            self.resultOneArr.add(JSON["result1"] as Any)
-                                            self.resultTwoArr.add(JSON["result2"] as Any)
-                                            self.createdArr.add(JSON["created"] as Any)
-                                            
-                                            let authorLink = JSON["author"] as! NSString
-                                            Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                                                if let JSON = response.result.value as? [String: Any] {
-                                                    print("JSON: \(JSON)")
-                                                    print("____kok_______")
-                                                    
-                                                    self.authorArr.add(JSON["username"] as Any)
-                                                    self.count = self.count+1
-                                                    
-                                                    self.tableView.reloadData()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
+                let urlCurrent = "http://127.0.0.1:8000/users/current/"
+                self.getCurrentUser(url: urlCurrent)
             }
-            
         }
     }
     
@@ -160,22 +140,29 @@ class HistoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! PostFeedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! PostFeedTableViewCell
         // Configure the cell...
+        getData(post: self.postObject, postArray: postArray)
         
-        cell.titleHistoryLabel?.text = self.nameArr[indexPath.row] as? String
+        let post = postArray[indexPath.row] as! PostModel
         
-        let strurl1 = URL(string: photoOneArr[indexPath.row] as! String)
-        let dtinternet1 = try? Data(contentsOf: strurl1!)
-        cell.imageOneHistory.image = UIImage(data: dtinternet1!)
-        
-        let strurl2 = URL(string: photoTwoArr[indexPath.row] as! String)
-        let dtinternet2 = try? Data(contentsOf: strurl2!)
-        cell.imageTwoHistory.image = UIImage(data: dtinternet2!)
+        cell.postNameLabel?.text = post.title
+        cell.imageOne.image = getImage(ImageUrl: post.imageOne, imageView: cell.imageOne)
+        cell.imageTwo.image = getImage(ImageUrl: post.imageTwo, imageView: cell.imageTwo)
         
         return cell
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? PostViewController {
+            let selectedRow = tableView.indexPathForSelectedRow!.row
+            destination.postObject = postArray[selectedRow] as! PostModel
+            destination.points = points
+        }
+        if let destination2 = segue.destination as? AddPostViewController {
+            destination2.points = points
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

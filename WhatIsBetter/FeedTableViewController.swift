@@ -11,44 +11,58 @@ import SideMenu
 import Alamofire
 import KeychainSwift
 
+class PostModel : NSObject
+{
+    var id: NSInteger!
+    var title : String!
+    var desc: String!
+    var author: String!
+    var resultOne: NSInteger!
+    var resultTwo: NSInteger!
+    var imageOne: String!
+    var imageTwo: String!
+    var created: String!
+}
+
 class FeedTableViewController: UITableViewController {
     var count = 0
-    var idArr: NSMutableArray = []
-    var nameArr: NSMutableArray = []
-    var descriptionArr: NSMutableArray = []
-    var photoOneArr: NSMutableArray = []
-    var photoTwoArr: NSMutableArray = []
-    var resultOneArr: NSMutableArray = []
-    var resultTwoArr: NSMutableArray = []
-    var createdArr: NSMutableArray = []
-    var authorArr: NSMutableArray = []
+//    var idArr: NSMutableArray = []
+//    var nameArr: NSMutableArray = []
+//    var descriptionArr: NSMutableArray = []
+//    var photoOneArr: NSMutableArray = []
+//    var photoTwoArr: NSMutableArray = []
+//    var resultOneArr: NSMutableArray = []
+//    var resultTwoArr: NSMutableArray = []
+//    var createdArr: NSMutableArray = []
+//    var authorArr: NSMutableArray = []
     var points: NSInteger!
-
+    
+    var postObject : PostModel = PostModel()
+    var postArray: NSMutableArray = []
+    
+    let headers: HTTPHeaders = [
+        "Authorization": "Token \(KeychainSwift().get("token")!)",
+    ]
+    
+    let postsUrl = "http://127.0.0.1:8000/api/posts/"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(KeychainSwift().get("token")!)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-//        let headers: HTTPHeaders = [
-//            "Authorization": "Token \(KeychainSwift().get("token")!)",
-//        ]
-//
+        //         Uncomment the following line to preserve selection between presentations
+        //         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         
         setupSideMenu()
         let nibName = UINib(nibName: "PostFeedTableViewCell", bundle:nil)
         self.tableView.register(nibName, forCellReuseIdentifier: "PostFeedTableViewCell")
         tableView.register(UINib(nibName: "PostFeedTableViewCell", bundle:nil), forCellReuseIdentifier: "PostFeedTableViewCell")
         
-        getData()
+        //        let PostObject : PostModel = PostModel()
+        getData(post: postObject, postArray: postArray)
         self.tableView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -69,153 +83,144 @@ class FeedTableViewController: UITableViewController {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
     
-    func getData() {
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-        ]
+    func getCurrentUser(url: String) {
+        Alamofire.request(url, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let userId = JSON["id"] as? NSInteger
+                let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
+                
+                Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+                    if let JSON = response.result.value as? [String: Any] {
+                        self.points = JSON["points"] as! NSInteger
+                    }
+                }
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
+    func getImage(ImageUrl:String, imageView:UIImageView) -> UIImage {
+        let strurl = URL(string: ImageUrl)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        imageView.image = UIImage(data: dtinternet!)
         
-        Alamofire.request("http://127.0.0.1:8000/api/posts/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+        return imageView.image!
+    }
+    
+    func getData(post:PostModel, postArray:NSMutableArray) {
+        Alamofire.request(postsUrl, method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
             
             if let JSON = response.result.value as? [String: Any] {
-                print("JSON: \(JSON)")
-                print("___________")
                 
                 self.count = JSON["count"] as! NSInteger
                 for items in JSON["results"] as! NSArray {
                     let itms = items as? [String:Any]
                     
-                    self.idArr.add(itms?["id"] as Any)
-                    self.nameArr.add(itms?["name"] as Any)
-                    self.descriptionArr.add(itms?["description"] as Any)
-                    self.photoOneArr.add(itms?["photo1"] as Any)
-                    self.photoTwoArr.add(itms?["photo2"] as Any)
-                    self.resultOneArr.add(itms?["result1"] as Any)
-                    self.resultTwoArr.add(itms?["result2"] as Any)
-                    self.createdArr.add(itms?["created"] as Any)
+                    post.id = itms?["id"] as! NSInteger
+                    post.title = itms?["name"] as! String
+                    post.desc = itms?["description"] as! String
+                    post.imageOne = itms?["photo1"] as! String
+                    post.imageTwo = itms?["photo2"] as! String
+                    post.resultOne = itms?["result1"] as! NSInteger
+                    post.resultTwo = itms?["result2"] as! NSInteger
+                    post.created = itms?["created"] as! String
+                    
+                    postArray.add(post)
                     
                     let authorLink = itms?["author"] as! NSString
-                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    Alamofire.request("\(authorLink)", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                         if let JSON = response.result.value as? [String: Any] {
-                            print("JSON: \(JSON)")
-                            print("____kok_______")
-                            
-                            self.authorArr.add(JSON["username"] as Any)
+                            post.author = JSON["author"] as! String
                         }
                     }
                 }
-                
-                Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                    if let JSON = response.result.value as? [String: Any] {
-                        let userId = JSON["id"] as? NSInteger
-                        let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
-                        
-                        Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                            if let JSON = response.result.value as? [String: Any] {
-                                self.points = JSON["points"] as! NSInteger
-                            }
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
+                let urlCurrent = "http://127.0.0.1:8000/users/current/"
+                self.getCurrentUser(url: urlCurrent)
             }
-            
         }
     }
-
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! PostFeedTableViewCell
         // Configure the cell...
-
-        cell.postNameLabel?.text = self.nameArr[indexPath.row] as? String
+        getData(post: self.postObject, postArray: postArray)
         
-        let strurl1 = URL(string: photoOneArr[indexPath.row] as! String)
-        let dtinternet1 = try? Data(contentsOf: strurl1!)
-        cell.imageOne.image = UIImage(data: dtinternet1!)
+        let post = postArray[indexPath.row] as! PostModel
         
-        let strurl2 = URL(string: photoTwoArr[indexPath.row] as! String)
-        let dtinternet2 = try? Data(contentsOf: strurl2!)
-        cell.imageTwo.image = UIImage(data: dtinternet2!)
-
+        cell.postNameLabel?.text = post.title
+        cell.imageOne.image = getImage(ImageUrl: post.imageOne, imageView: cell.imageOne)
+        cell.imageTwo.image = getImage(ImageUrl: post.imageTwo, imageView: cell.imageTwo)
+        
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? PostViewController {
             let selectedRow = tableView.indexPathForSelectedRow!.row
-            destination.idPost = idArr[selectedRow] as! NSInteger
-            destination.namePost = nameArr[selectedRow] as! String
-            destination.createdPost = createdArr[selectedRow] as! String
-            destination.descriptionPost = descriptionArr[selectedRow] as! String
-            destination.photoOnePost = photoOneArr[selectedRow] as! String
-            destination.photoTwoPost = photoTwoArr[selectedRow] as! String
-            destination.resultOnePost = resultOneArr[selectedRow] as! NSInteger
-            destination.resultTwoPost = resultTwoArr[selectedRow] as! NSInteger
-            destination.authorPost = authorArr[selectedRow] as! String
             destination.points = points
+            destination.postObject = postArray[selectedRow] as! PostModel
         }
         if let destination2 = segue.destination as? AddPostViewController {
             destination2.points = points
         }
     }
- 
-
+    
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

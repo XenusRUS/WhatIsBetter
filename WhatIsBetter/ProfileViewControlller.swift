@@ -21,6 +21,9 @@ class ProfileViewControlller: ViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var birthdayLabel: UILabel!
     
+    @IBOutlet weak var postStaticLabel: UILabel!
+    @IBOutlet weak var pointsStaticLabel: UILabel!
+    
     @IBAction fileprivate func close() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -28,9 +31,9 @@ class ProfileViewControlller: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         // Do any additional setup after loading the view.
-        avatarImageView.layer.cornerRadius = 75;
-        avatarImageView.layer.masksToBounds = true;
+        avatarImageView = imageLayer(imageView: avatarImageView)
         
         getData()
     }
@@ -40,6 +43,22 @@ class ProfileViewControlller: ViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func imageLayer(imageView:UIImageView) -> UIImageView {
+        imageView.layer.cornerRadius = 75
+        imageView.layer.masksToBounds = true
+        
+        return imageView
+    }
+    
+    func endOfWords(count:NSInteger) -> Bool {
+        if (count % 10 != 0) && (count % 10 < 5) && ((count < 11) || (count > 19)) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     func getData() {
         let headers: HTTPHeaders = [
             "Authorization": "Token \(KeychainSwift().get("token")!)",
@@ -47,8 +66,6 @@ class ProfileViewControlller: ViewController {
         
         Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             if let JSON = response.result.value as? [String: Any] {
-                print("JSON: \(JSON)")
-                print("____cur_______")
                 self.nameLabel.text = JSON["username"] as? String
                 self.emailLabel.text = JSON["email"] as? String
                 
@@ -68,6 +85,13 @@ class ProfileViewControlller: ViewController {
                         let strurl1 = URL(string: avatarUrl!)
                         let dtinternet1 = try? Data(contentsOf: strurl1!)
                         self.avatarImageView.image = UIImage(data: dtinternet1!)
+                        
+                        if self.endOfWords(count: postCount!) {
+                            self.postStaticLabel.text = "Поста"
+                        }
+                        if self.endOfWords(count: points!) {
+                            self.pointsStaticLabel.text = "Балла"
+                        }
                     }
                 }
             }

@@ -23,7 +23,7 @@ class CouponDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         // Do any additional setup after loading the view.
         showData()
         setupSideMenu()
@@ -49,13 +49,18 @@ class CouponDetailViewController: UIViewController {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
     
+    func getImage(ImageUrl:String, imageView:UIImageView) -> UIImage {
+        let strurl = URL(string: ImageUrl)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        imageView.image = UIImage(data: dtinternet!)
+        
+        return imageView.image!
+    }
+    
     func showData() {
         nameCouponLabel.text = nameCoupon
         descriptionCouponTextView.text = descriptionCoupon
-        
-        let strurl = URL(string: imageCoupon!)
-        let dtinternet = try? Data(contentsOf: strurl!)
-        couponImageView.image = UIImage(data: dtinternet!)
+        couponImageView.image = getImage(ImageUrl: imageCoupon!, imageView: couponImageView)
     }
     
     @IBAction func buyButton(_ sender: Any) {
@@ -71,7 +76,6 @@ class CouponDetailViewController: UIViewController {
             if let JSON = response.result.value as? [String: Any] {
                 let userId = JSON["id"] as? NSInteger
                 let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
-                print(urlProfile)
                 
                 Alamofire.request(urlProfile, method: .put, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
                     let parameters: Parameters = [

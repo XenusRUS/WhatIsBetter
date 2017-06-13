@@ -21,6 +21,7 @@ class SideMenuTableView: UITableViewController {
         getData()
         avatarImage.layer.cornerRadius = 55.5
         avatarImage.layer.masksToBounds = true
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
     }
     
     override func viewWillAppear(_ animated: Bool) {

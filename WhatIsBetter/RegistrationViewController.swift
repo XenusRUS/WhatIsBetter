@@ -24,6 +24,7 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         avatarImageView.layer.cornerRadius = 34.5;
         avatarImageView.layer.masksToBounds = true;
 
@@ -50,25 +51,17 @@ class RegistrationViewController: UIViewController {
             activityIndicator.stopAnimating()
         }
         else {
-            confirmRegistraion()
+            let urlUser = "http://127.0.0.1:8000/users/"
+            let urlProfile = "http://127.0.0.1:8000/api/userprofile/"
+            confirmRegistraion(urlUser: urlUser, urlProfile: urlProfile, username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!)
         }
-        
-//        if confirmPasswordTextField.text != passwordTextField.text {
-//            let alertController = UIAlertController(title: "Пароли не совпадают!", message:"Подтвердите пароль", preferredStyle: UIAlertControllerStyle.alert)
-//            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-//            self.present(alertController, animated: true, completion: nil)
-//            activityIndicator.stopAnimating()
-//            
-//        } else {
-//            confirmRegistraion()
-//        }
     }
     
-    func confirmRegistraion() {
+    func confirmRegistraion(urlUser:String, urlProfile:String, username: String, email: String, password: String) {
         let parameters: [String: AnyObject] = [
-            "username" : usernameTextField.text as AnyObject,
-            "email" : emailTextField.text as AnyObject,
-            "password" : passwordTextField.text as AnyObject,
+            "username" : username as AnyObject,
+            "email" : email as AnyObject,
+            "password" : password as AnyObject,
             ]
         
         let parameters2: [String: AnyObject] = [
@@ -79,20 +72,11 @@ class RegistrationViewController: UIViewController {
             "Authorization": "Token 5a710ba7007dbf9f9b600dc207775d8e57d97278",
         ]
         
-        Alamofire.request("http://127.0.0.1:8000/users/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            Alamofire.request("http://127.0.0.1:8000/api/userprofile/", method: .post, parameters:parameters2, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+        Alamofire.request(urlUser, method: .post, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            Alamofire.request(urlProfile, method: .post, parameters:parameters2, encoding: URLEncoding.default, headers: headers).responseJSON { response in
 
             }
         }
-        
-//        usernameTextField.text = ""
-//        emailTextField.text = ""
-//        passwordTextField.text = ""
-//        confirmPasswordTextField.text = ""
-        
-//        let alertController = UIAlertController(title: "Регистрация завершена!", message:"Вы успешно зарегистрированы", preferredStyle: UIAlertControllerStyle.alert)
-//        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-//        viewc.present(alertController, animated: true, completion: nil)
         activityIndicator.stopAnimating()
     }
 

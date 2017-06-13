@@ -1,20 +1,19 @@
 //
-//  NavigationViewController.swift
+//  EditProfileViewController.swift
 //  WhatIsBetter
 //
-//  Created by admin on 15.02.17.
+//  Created by admin on 24.05.17.
 //  Copyright © 2017 vadim. All rights reserved.
 //
 
 import UIKit
 
-class NavigationViewController: UIViewController {
+class EditProfileViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
     }
 
     override func didReceiveMemoryWarning() {

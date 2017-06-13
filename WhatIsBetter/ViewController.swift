@@ -21,29 +21,61 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        let headers: HTTPHeaders = [
-            "Authorization": "Token 5a710ba7007dbf9f9b600dc207775d8e57d97278",
-        ]
-//        view.backgroundColor = UIColor.brownColor();
-//        textField.text = "Some Text";
-//        emailField.backgroundColor = UIColor.brown;
-//        emailField.layer.borderWidth = 1.0;
-//        emailField.layer.cornerRadius = 16.0;
-////        emailField.leftView = UIView(frame: CGRectMake(0, 0, 5, 37));
-//        emailField.leftViewMode = UITextFieldViewMode.always;
-        
-//        emailField.leftViewMode = UITextFieldViewMode.always
-//        let loginImageView = UIImageView();
-//        loginImageView.image = UIImage(named: "login.png")
-//        emailField.leftView = loginImageView
-
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func auth(url:String, login: String, password: String) {
+        let parameters: Parameters = [
+            "username" : login,
+            "password" : password,
+        ]
+        
+        Alamofire.request(url, method: .post, parameters:parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let token = JSON["token"] as! String
+                
+                let keychain = KeychainSwift()
+                keychain.set(token, forKey: "token")
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "naviFeed")
+                self.present(controller, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
+//    class func getNews(univers: [NSDictionary], login:String, password:String, completionHandler:@escaping (Any?)->(Void)) {
+////        var news: [News] = []
+//        
+////        let parameters : Parameters = ["start":start, "count":count]
+//        let parameters: Parameters = [
+//            "username" : login,
+//            "password" : password,
+//            ]
+//        
+//        DataManager.request(url: "/api/university/news", parameters: parameters) { (dict, result, error_text, code) in
+//            switch result {
+//            case .success:
+//                if let data = dict?.value(forKey: "") as? [NSDictionary] {
+//                    if data.count == 0 { completionHandler(nil) }
+//                    for i in 0..<data.count {
+//                        let new = News.init(date: data[i].value(forKey: "date") as! String, title: data[i].value(forKey: "title") as! String, text: data[i].value(forKey: "text") as! String, imageUrl: data[i].value(forKey: "image") as! String, id: data[i].value(forKey: "id") as! Int, univerShort: "")
+//                        news.append(new)
+//                    }
+//                    completionHandler(news)
+//                }
+//            case .error:
+//                completionHandler(nil)
+//            case .invalidToken: break
+//            case .noInternetConnection: break
+//            }
+//        }
+//    }
     
     @IBAction func loginButton(_ sender: Any) {
         activityIndicator.center = self.view.center
@@ -59,36 +91,9 @@ class ViewController: UIViewController {
             activityIndicator.stopAnimating()
         }
         else {
-            let parameters: Parameters = [
-                "username" : emailField.text!,
-                "password" : passwordField.text!,
-                ]
+            let url = "http://127.0.0.1:8000/api-token-auth/"
             
-            Alamofire.request("http://127.0.0.1:8000/api-token-auth/", method: .post, parameters:parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in
-                debugPrint(response)
-                
-                print("original URL request", response.request)  // original URL request
-                print("HTTP URL response", response.response) // HTTP URL response
-                print("server data", response.data)     // server data
-                print("result of serialization", response.result)   // result of response serialization
-                
-                if let JSON = response.result.value as? [String: Any] {
-                    print("JSON: \(JSON)")
-                    print("____LOGIN_______")
-                    
-                    let token = JSON["token"] as! String
-                    
-                    print(token)
-                    
-                    let keychain = KeychainSwift()
-                    keychain.set(token, forKey: "token")
-                    
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let controller = storyboard.instantiateViewController(withIdentifier: "naviFeed")
-                    self.present(controller, animated: true, completion: nil)
-                }
-            }
-            
+            auth(url: url, login: emailField.text!, password: passwordField.text!)
         }
 
     }

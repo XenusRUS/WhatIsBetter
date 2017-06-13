@@ -20,7 +20,8 @@ class CouponTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        tabBarController?.tabBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -64,9 +65,6 @@ class CouponTableViewController: UITableViewController {
         Alamofire.request("http://127.0.0.1:8000/api/coupons/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             
             if let JSON = response.result.value as? [String: Any] {
-                print("JSON: \(JSON)")
-                print("_____coup______")
-                
                 self.count = JSON["count"] as! NSInteger
                 for items in JSON["results"] as! NSArray {
                     let itms = items as? [String:Any]
@@ -83,9 +81,7 @@ class CouponTableViewController: UITableViewController {
                         let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
                         
                         Alamofire.request(urlProfile, method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                            if let JSON = response.result.value as? [String: Any] {
-                                //self.points = JSON["points"] as! NSInteger
-                            }
+                            
                         }
                     }
                     self.tableView.reloadData()
@@ -94,6 +90,14 @@ class CouponTableViewController: UITableViewController {
             }
             
         }
+    }
+    
+    func getImage(ImageUrl:String, imageView:UIImageView) -> UIImage {
+        let strurl = URL(string: ImageUrl)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        imageView.image = UIImage(data: dtinternet!)
+        
+        return imageView.image!
     }
     
     
@@ -114,10 +118,7 @@ class CouponTableViewController: UITableViewController {
         // Configure the cell...
         
         cell.nameCoupon?.text = self.nameArr[indexPath.row] as? String
-        
-        let strurl = URL(string: imageArr[indexPath.row] as! String)
-        let dtinternet = try? Data(contentsOf: strurl!)
-        cell.imageCoupon.image = UIImage(data: dtinternet!)
+        cell.imageCoupon.image = getImage(ImageUrl: imageArr[indexPath.row] as! String, imageView: cell.imageCoupon)
         
         return cell
     }

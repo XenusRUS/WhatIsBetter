@@ -33,8 +33,6 @@ class MyCouponsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "CouponTableViewCell", bundle:nil), forCellReuseIdentifier: "CouponTableViewCell")
         getData()
         setupSideMenu()
-        
-//        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,13 +60,6 @@ class MyCouponsTableViewController: UITableViewController {
             "Authorization": "Token \(KeychainSwift().get("token")!)",
         ]
         Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-//            self.tableView.reloadData()
-//            self.idArr.add(1 as Any)
-//            self.nameArr.add("1" as Any)
-//            self.imageArr.add("http://127.0.0.1:8000/media/c1.png" as Any)
-//            self.descriptionArr.add("11" as Any)
-//            self.tableView.reloadData()
-            
             if let JSON = response.result.value as? [String: Any] {
                 let userId = JSON["id"] as? NSInteger
                 let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
@@ -77,11 +68,8 @@ class MyCouponsTableViewController: UITableViewController {
                     if let JSON = response.result.value as? [String: Any] {
                         let myCouponsArray = JSON["coupons"] as! NSArray
                         for couponItems in myCouponsArray {
-                            print(couponItems)
                             Alamofire.request("\(couponItems)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
                                 if let JSON = response.result.value as? [String: Any] {
-                                    print("JSON: \(JSON)")
-                                    print("_____coup______")
                                     self.idArr.add(JSON["id"] as Any)
                                     self.nameArr.add(JSON["name"] as Any)
                                     self.imageArr.add(JSON["image"] as Any)
@@ -98,27 +86,34 @@ class MyCouponsTableViewController: UITableViewController {
             }
         }
     }
+    
+    func getImage(ImageUrl:String, imageView:UIImageView) -> UIImage {
+        let strurl = URL(string: ImageUrl)
+        let dtinternet = try? Data(contentsOf: strurl!)
+        imageView.image = UIImage(data: dtinternet!)
+        
+        return imageView.image!
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return self.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "couponCell", for: indexPath) as! CouponTableViewCell
         // Configure the cell...
         
         cell.nameCoupon?.text = self.nameArr[indexPath.row] as? String
-        
-        let strurl = URL(string: imageArr[indexPath.row] as! String)
-        let dtinternet = try? Data(contentsOf: strurl!)
-        cell.imageCoupon.image = UIImage(data: dtinternet!)
+        cell.imageCoupon.image = getImage(ImageUrl: imageArr[indexPath.row] as! String, imageView: cell.imageCoupon)
+//        let strurl = URL(string: imageArr[indexPath.row] as! String)
+//        let dtinternet = try? Data(contentsOf: strurl!)
+//        cell.imageCoupon.image = UIImage(data: dtinternet!)
         
         return cell
     }

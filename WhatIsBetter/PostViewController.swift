@@ -12,15 +12,15 @@ import Alamofire
 import KeychainSwift
 
 class PostViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var idPost: NSInteger!
-    var namePost: String!
-    var descriptionPost: String!
-    var authorPost: String!
-    var photoOnePost: String!
-    var photoTwoPost: String!
-    var resultOnePost: NSInteger!
-    var resultTwoPost: NSInteger!
-    var createdPost: String!
+//    var idPost: NSInteger!
+//    var namePost: String!
+//    var descriptionPost: String!
+//    var authorPost: String!
+//    var photoOnePost: String!
+//    var photoTwoPost: String!
+//    var resultOnePost: NSInteger!
+//    var resultTwoPost: NSInteger!
+//    var createdPost: String!
     var points: NSInteger!
     
     var countComment = 0
@@ -45,31 +45,26 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var resultOneBar: UIProgressView!
     @IBOutlet weak var resultTwoBar: UIProgressView!
     
+    var postObject : PostModel = PostModel()
+    var postArray: NSMutableArray = []
+    
+    let headers: HTTPHeaders = [
+        "Authorization": "Token \(KeychainSwift().get("token")!)",
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         loadComments()
         
         tableView.delegate = self
-        tableView.dataSource = self as? UITableViewDataSource
+        tableView.dataSource = self
         
         setupSideMenu()
-        showData()
-        
-//        addCommentTextView.text = "Ваше сообщение"
-//        addCommentTextView.textColor = UIColor.lightGray
-        
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//
-//        gradient.colors = [UIColor.gray.cgColor, UIColor.purple.cgColor]
-//        gradient.locations = [0.0 , 1.0]
-//        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-//        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-//        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-//        
-//        self.view.layer.insertSublayer(gradient, at: 0)
+        showData(post: postObject, postArray: postArray)
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,91 +87,85 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
     
-    func showData() {
-        titleLabel.text = namePost
-        descriptionText.text = descriptionPost
-        authorLabel.setTitle(authorPost, for: .normal)
-        countOneLabel.text = String(resultOnePost)
-        countTwoLabel.text = String(resultTwoPost)
-        resultOneBar.progress = Float(resultOnePost)/Float((resultOnePost+resultTwoPost))
-        resultTwoBar.progress = Float(resultTwoPost)/Float((resultOnePost+resultTwoPost))
-        
-        //format date and time
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy' 'HH:mm:ss"
-        
-        let stringToDate = dateFromStringConverter(date: createdPost)
-        let dateString = dateFormatter.string(from:stringToDate! as Date)
-        createdLabel.text = dateString
-        
-        //image 1
-        let strurl1 = URL(string: photoOnePost!)
+    func showImage(urlImage: String) -> UIImage {
+        let strurl1 = URL(string: urlImage)
         let dtinternet1 = try? Data(contentsOf: strurl1!)
-        photoOneImage.image = UIImage(data: dtinternet1!)
+        let imageView = UIImageView()
+        imageView.image = UIImage(data: dtinternet1!)
         
-        //image 2
-        let strurl2 = URL(string: photoTwoPost!)
-        let dtinternet2 = try? Data(contentsOf: strurl2!)
-        photoTwoImage.image = UIImage(data: dtinternet2!)
+        return imageView.image!
     }
     
-    func dateFromStringConverter(date: String)-> NSDate? {
+    func showData(post:PostModel, postArray:NSMutableArray) {
+        titleLabel.text = post.title
+        descriptionText.text = post.desc
+        authorLabel.setTitle(post.author, for: .normal)
+        countOneLabel.text = String(post.resultOne)
+        countTwoLabel.text = String(post.resultTwo)
+        resultOneBar.progress = Float(post.resultOne)/Float((post.resultOne+post.resultTwo))
+        resultTwoBar.progress = Float(post.resultTwo)/Float((post.resultOne+post.resultTwo))
+        createdLabel.text = dateFromStringConverter(date: post.created)
+        
+        photoOneImage.image = showImage(urlImage: postObject.imageOne)
+        photoTwoImage.image = showImage(urlImage: postObject.imageOne)
+    }
+    
+    func dateFromStringConverter(date: String)-> String {
         //Create Date Formatter
         let dateFormatter = DateFormatter()
         //Specify Format of String to Parse
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
         //Parse into NSDate
         let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
         
-        return dateFromString
+        dateFormatter.dateFormat = "dd-MM-yyyy' 'HH:mm:ss"
+        let dateString = dateFormatter.string(from:dateFromString as Date)
+        
+        return dateString
     }
     
     func dateFromStringConverterShort(date: String)-> NSDate? {
         //Create Date Formatter
         let dateFormatter = DateFormatter()
         //Specify Format of String to Parse
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ" //or you can use "yyyy-MM-dd'T'HH:mm:ssX"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         //Parse into NSDate
         let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
         
         return dateFromString
     }
     
-    @IBAction func addTest(_ sender: Any) {
-        
+    func updateVotes(postId: NSInteger) {
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(postId)/", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+            if let JSON = response.result.value as? [String: Any] {
+                let countOne = JSON["result1"] as! NSInteger
+                let countTwo = JSON["result2"] as! NSInteger
+                self.countOneLabel.text = String(countOne)
+                self.countTwoLabel.text = String(countTwo)
+                
+                self.resultOneBar.progress = Float(countOne)/Float((countOne+countTwo))
+                self.resultTwoBar.progress = Float(countTwo)/Float((countOne+countTwo))
+            }
+        }
     }
 
     @IBAction func chooseOne(_ sender: Any) {
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-        ]
-        
         let parameters: Parameters = [
-            "result1" : resultOnePost+1,
+            "result1" : postObject.resultOne+1,
             ]
         
-        Alamofire.request("http://127.0.0.1:8000/api/posts/\(idPost!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            Alamofire.request("http://127.0.0.1:8000/api/posts/\(self.idPost!)/", method: .get, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                if let JSON = response.result.value as? [String: Any] {
-                    let countOne = JSON["result1"] as! NSInteger
-                    let countTwo = JSON["result2"] as! NSInteger
-                    self.countOneLabel.text = String(countOne)
-                    self.countTwoLabel.text = String(countTwo)
-                    
-                    self.resultOneBar.progress = Float(countOne)/Float((countOne+countTwo))
-                    self.resultTwoBar.progress = Float(countTwo)/Float((countOne+countTwo))
-                }
-            }
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(postObject.id!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+            self.updateVotes(postId: self.postObject.id)
             
             let parameters: Parameters = [
                 "points" : self.points+1,
                 ]
-            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                 if let JSON = response.result.value as? [String: Any] {
                     let userId = JSON["id"] as? NSInteger
                     let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
                     
-                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
 
                     }
                 }
@@ -185,36 +174,22 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func chooseTwo(_ sender: Any) {
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-        ]
-        
         let parameters: Parameters = [
-            "result2" : resultTwoPost+1,
+            "result2" : postObject.resultOne+1,
             ]
         
-        Alamofire.request("http://127.0.0.1:8000/api/posts/\(idPost!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-            Alamofire.request("http://127.0.0.1:8000/api/posts/\(self.idPost!)/", method: .get, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
-                if let JSON = response.result.value as? [String: Any] {
-                    let countOne = JSON["result1"] as! NSInteger
-                    let countTwo = JSON["result2"] as! NSInteger
-                    self.countOneLabel.text = String(countOne)
-                    self.countTwoLabel.text = String(countTwo)
-                    
-                    self.resultOneBar.progress = Float(countOne)/Float((countOne+countTwo))
-                    self.resultTwoBar.progress = Float(countTwo)/Float((countOne+countTwo))
-                }
-            }
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(postObject.id!)/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
+            self.updateVotes(postId: self.postObject.id)
             
             let parameters: Parameters = [
                 "points" : self.points+1,
                 ]
-            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+            Alamofire.request("http://127.0.0.1:8000/users/current/", method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                 if let JSON = response.result.value as? [String: Any] {
                     let userId = JSON["id"] as? NSInteger
                     let urlProfile = "http://127.0.0.1:8000/api/userprofile/\(String(describing: userId!))/"
                     
-                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    Alamofire.request(urlProfile, method: .patch, parameters:parameters, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                         
                     }
                 }
@@ -223,20 +198,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadComments() {
-        let headers: HTTPHeaders = [
-            "Authorization": "Token \(KeychainSwift().get("token")!)",
-        ]
-        
-        Alamofire.request("http://127.0.0.1:8000/api/posts/\(String(self.idPost))/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+        Alamofire.request("http://127.0.0.1:8000/api/posts/\(String(self.idPost))/", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
             if let JSON = response.result.value as? [String: Any] {
                 let commentArray = JSON["comments"] as! NSArray
                 for commentItems in commentArray {
-                    print(commentItems)
-                    print("commentItems")
-                    Alamofire.request("\(commentItems)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                    Alamofire.request("\(commentItems)", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                         if let JSON = response.result.value as? [String: Any] {
-                            print("JSON: \(JSON)")
-                            print("_____coup______")
                             self.idArr.add(JSON["id"] as Any)
                             self.commentArr.add(JSON["comment"] as Any)
                             self.createdArr.add(JSON["created"] as Any)
@@ -244,37 +211,24 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             let user = JSON["user"] as! String
                             let userString = String(describing: user)
                             
-                            print(userString)
-                            print("comment")
-                            
-                            Alamofire.request("\(userString)", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                            Alamofire.request("\(userString)", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                                 if let JSON = response.result.value as? [String: Any] {
                                     self.usernameArr.add(JSON["username"] as Any)
-                                    
-                                    self.tableView.reloadData()
-                                    
+                                                                        
                                     let userId = JSON["id"] as! NSInteger
                                     let userIdString = String(describing: userId)
                                     
-                                    Alamofire.request("http://127.0.0.1:8000/api/userprofile/\(userIdString)/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
+                                    Alamofire.request("http://127.0.0.1:8000/api/userprofile/\(userIdString)/", method: .get, encoding: URLEncoding.default, headers: self.headers).responseJSON { response in
                                         if let JSON = response.result.value as? [String: Any] {
                                             self.avatarArr.add(JSON["avatar"] as Any)
                                             
                                             self.countComment = self.countComment+1
                                             self.tableView.reloadData()
                                         }
-//                                        self.tableView.reloadData()
                                     }
-                                    
-                                    
-                                    
                                 }
-//                                self.tableView.reloadData()
                             }
-                            
-//                            self.tableView.reloadData()
                         }
-//                        self.tableView.reloadData()
                     }
                 }
             }
@@ -297,11 +251,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.usernameLabel?.text = self.usernameArr[indexPath.row] as? String
         cell.commentText?.text = self.commentArr[indexPath.row] as? String
-//        cell.createdLabel?.text = self.createdArr[indexPath.row] as? String
-        
-        let strurl = URL(string: avatarArr[indexPath.row] as! String)
-        let dtinternet = try? Data(contentsOf: strurl!)
-        cell.avatarImage.image = UIImage(data: dtinternet!)
+        cell.avatarImage.image = showImage(urlImage: avatarArr[indexPath.row] as! String)
         
         //format date and time
         let dateFormatter = DateFormatter()

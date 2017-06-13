@@ -9,6 +9,23 @@
 /* Begin PBXBuildFile section */
 		404B9A0BB673FD4D7EBE3B28 /* Pods_WhatIsBetterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */; };
 		7950662B3D5892EE39B9CDD3 /* Pods_WhatIsBetter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */; };
+		8401CE131ECE2A2A00BC086A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84725E411E41DB590012FF07 /* ViewController.swift */; };
+		8401CE141ECE2A4500BC086A /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F081E54534D0098CA44 /* RegistrationViewController.swift */; };
+		8401CE151ECE2A4D00BC086A /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */; };
+		8401CE161ECE2A4F00BC086A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BEBF01EACE00F0014F990 /* PostViewController.swift */; };
+		8401CE171ECE2A5200BC086A /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84112F571EB20B75006A9EB4 /* AddPostViewController.swift */; };
+		8401CE181ECE2A5500BC086A /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */; };
+		8401CE191ECE2A5800BC086A /* ProfileViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299941E5843A400D02228 /* ProfileViewControlller.swift */; };
+		8401CE1A1ECE2A5A00BC086A /* CouponTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */; };
+		8401CE1B1ECE2A5E00BC086A /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAF31EBF6DCD00EC066A /* CouponDetailViewController.swift */; };
+		8401CE1C1ECE2A6000BC086A /* MyCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */; };
+		8401CE1D1ECE2A6A00BC086A /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2999A1E585D2600D02228 /* SideMenuTableView.swift */; };
+		8401CE1E1ECE2A7200BC086A /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */; };
+		8401CE1F1ECE2AAF00BC086A /* PostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */; };
+		8401CE201ECE2AB200BC086A /* CouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */; };
+		8401CE211ECE2AB500BC086A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844764911EC795100027C9A9 /* CommentTableViewCell.swift */; };
+		8401CE221ECE2AB800BC086A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84421F1D1EC5EF0E00003D86 /* CustomTextField.swift */; };
+		840609671ED5ADAF002AFFA2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840609661ED5ADAF002AFFA2 /* EditProfileViewController.swift */; };
 		8409FAEE1EBF61FE00EC066A /* CouponTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */; };
 		8409FAF11EBF64D500EC066A /* CouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */; };
 		8409FAF21EBF64D600EC066A /* CouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8409FAF01EBF64D500EC066A /* CouponTableViewCell.xib */; };
@@ -32,6 +49,8 @@
 		844764921EC795100027C9A9 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844764911EC795100027C9A9 /* CommentTableViewCell.swift */; };
 		844A49D91EB4DEA500EB71ED /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 844A49D81EB4DEA500EB71ED /* upload.png */; };
 		844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BEBF01EACE00F0014F990 /* PostViewController.swift */; };
+		844CF50F1ED33C250027BCF8 /* percent-decor-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 844CF50D1ED33C250027BCF8 /* percent-decor-7.png */; };
+		844CF5101ED33C250027BCF8 /* wallet-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 844CF50E1ED33C250027BCF8 /* wallet-7.png */; };
 		847165A11EC9C178005C8C83 /* discount.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659C1EC9C178005C8C83 /* discount.png */; };
 		847165A21EC9C178005C8C83 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659D1EC9C178005C8C83 /* help.png */; };
 		847165A31EC9C178005C8C83 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 8471659E1EC9C178005C8C83 /* history.png */; };
@@ -50,12 +69,14 @@
 		84B0B8301E5C17A500980EF4 /* PostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */; };
 		84B0B8311E5C17A500980EF4 /* PostFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */; };
 		84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */; };
+		84B8087F1EE700D6001FF81E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8087E1EE700D6001FF81E /* DataManager.swift */; };
 		84C312621EC883100044B1A8 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C312611EC883100044B1A8 /* send.png */; };
 		84C312641EC8859C0044B1A8 /* send-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C312631EC8859C0044B1A8 /* send-2.png */; };
 		84D299951E5843A400D02228 /* ProfileViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299941E5843A400D02228 /* ProfileViewControlller.swift */; };
-		84D299991E5846D300D02228 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D299981E5846D300D02228 /* FeedViewController.swift */; };
 		84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2999A1E585D2600D02228 /* SideMenuTableView.swift */; };
 		84D9CCB71EC3457C007303B2 /* MyCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */; };
+		84DEE57D1ED47E1F00BC2243 /* plasch_paxton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84DEE57B1ED47E1F00BC2243 /* plasch_paxton.jpg */; };
+		84DEE57E1ED47E1F00BC2243 /* vot-on-plashh09_ADF.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84DEE57C1ED47E1F00BC2243 /* vot-on-plashh09_ADF.jpg */; };
 		84EFD3EA1E5D748D008AB4A4 /* no-image.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3E91E5D748D008AB4A4 /* no-image.gif */; };
 		84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */; };
 		84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFD3ED1E5DA601008AB4A4 /* change_password.png */; };
@@ -85,6 +106,7 @@
 		42B632EB749742D90C37B2AC /* Pods_WhatIsBetter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0145396A5AACD4136226BF /* Pods_WhatIsBetterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatIsBetterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7671866E6AD1B944784C606C /* Pods-WhatIsBetterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatIsBetterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhatIsBetterUITests/Pods-WhatIsBetterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		840609661ED5ADAF002AFFA2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponTableViewController.swift; sourceTree = "<group>"; };
 		8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponTableViewCell.swift; sourceTree = "<group>"; };
 		8409FAF01EBF64D500EC066A /* CouponTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponTableViewCell.xib; sourceTree = "<group>"; };
@@ -108,6 +130,8 @@
 		844764911EC795100027C9A9 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		844A49D81EB4DEA500EB71ED /* upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upload.png; path = images/upload.png; sourceTree = "<group>"; };
 		844BEBF01EACE00F0014F990 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		844CF50D1ED33C250027BCF8 /* percent-decor-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "percent-decor-7.png"; path = "images/percent-decor-7.png"; sourceTree = "<group>"; };
+		844CF50E1ED33C250027BCF8 /* wallet-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wallet-7.png"; path = "images/wallet-7.png"; sourceTree = "<group>"; };
 		8471659C1EC9C178005C8C83 /* discount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = discount.png; path = images/navigation/discount.png; sourceTree = "<group>"; };
 		8471659D1EC9C178005C8C83 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = images/navigation/help.png; sourceTree = "<group>"; };
 		8471659E1EC9C178005C8C83 /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = history.png; path = images/navigation/history.png; sourceTree = "<group>"; };
@@ -132,12 +156,14 @@
 		84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFeedTableViewCell.swift; sourceTree = "<group>"; };
 		84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostFeedTableViewCell.xib; sourceTree = "<group>"; };
 		84B0B8321E5C1C2900980EF4 /* FeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		84B8087E1EE700D6001FF81E /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		84C312611EC883100044B1A8 /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = send.png; path = images/send.png; sourceTree = "<group>"; };
 		84C312631EC8859C0044B1A8 /* send-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "send-2.png"; path = "images/send-2.png"; sourceTree = "<group>"; };
 		84D299941E5843A400D02228 /* ProfileViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewControlller.swift; sourceTree = "<group>"; };
-		84D299981E5846D300D02228 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		84D2999A1E585D2600D02228 /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
 		84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCouponsTableViewController.swift; sourceTree = "<group>"; };
+		84DEE57B1ED47E1F00BC2243 /* plasch_paxton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = plasch_paxton.jpg; path = "../../../Desktop/посты/plasch_paxton.jpg"; sourceTree = "<group>"; };
+		84DEE57C1ED47E1F00BC2243 /* vot-on-plashh09_ADF.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "vot-on-plashh09_ADF.jpg"; path = "../../../Desktop/посты/vot-on-plashh09_ADF.jpg"; sourceTree = "<group>"; };
 		84EFD3E91E5D748D008AB4A4 /* no-image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "no-image.gif"; path = "images/no-image.gif"; sourceTree = "<group>"; };
 		84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		84EFD3ED1E5DA601008AB4A4 /* change_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = change_password.png; path = images/change_password.png; sourceTree = "<group>"; };
@@ -235,17 +261,18 @@
 				84112F571EB20B75006A9EB4 /* AddPostViewController.swift */,
 				84EFD3EB1E5D7E77008AB4A4 /* HistoryTableViewController.swift */,
 				84D299941E5843A400D02228 /* ProfileViewControlller.swift */,
+				840609661ED5ADAF002AFFA2 /* EditProfileViewController.swift */,
 				8409FAED1EBF61FE00EC066A /* CouponTableViewController.swift */,
 				8409FAF31EBF6DCD00EC066A /* CouponDetailViewController.swift */,
 				84D9CCB61EC3457C007303B2 /* MyCouponsTableViewController.swift */,
 				84725E431E41DB590012FF07 /* Main.storyboard */,
+				84B8087E1EE700D6001FF81E /* DataManager.swift */,
 				84D2999A1E585D2600D02228 /* SideMenuTableView.swift */,
 				84359F0E1E545DD70098CA44 /* NavigationTableViewController.swift */,
 				84725E461E41DB590012FF07 /* Assets.xcassets */,
 				84725E481E41DB590012FF07 /* LaunchScreen.storyboard */,
 				84725E4B1E41DB590012FF07 /* Info.plist */,
 				84359F101E545EFB0098CA44 /* NavigationViewController.swift */,
-				84D299981E5846D300D02228 /* FeedViewController.swift */,
 				84B0B82E1E5C17A500980EF4 /* PostFeedTableViewCell.swift */,
 				84B0B82F1E5C17A500980EF4 /* PostFeedTableViewCell.xib */,
 				8409FAEF1EBF64D500EC066A /* CouponTableViewCell.swift */,
@@ -296,6 +323,10 @@
 				84EFD3ED1E5DA601008AB4A4 /* change_password.png */,
 				844A49D81EB4DEA500EB71ED /* upload.png */,
 				84421F231EC5FCA000003D86 /* email.png */,
+				844CF50D1ED33C250027BCF8 /* percent-decor-7.png */,
+				844CF50E1ED33C250027BCF8 /* wallet-7.png */,
+				84DEE57B1ED47E1F00BC2243 /* plasch_paxton.jpg */,
+				84DEE57C1ED47E1F00BC2243 /* vot-on-plashh09_ADF.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -437,9 +468,11 @@
 				84359F0B1E5455380098CA44 /* no-avatar.gif in Resources */,
 				84C312621EC883100044B1A8 /* send.png in Resources */,
 				847165A21EC9C178005C8C83 /* help.png in Resources */,
+				84DEE57E1ED47E1F00BC2243 /* vot-on-plashh09_ADF.jpg in Resources */,
 				847165A51EC9C178005C8C83 /* settings.png in Resources */,
 				84421F261EC60B3500003D86 /* versus.png in Resources */,
 				8447648A1EC768C20027C9A9 /* location.png in Resources */,
+				844CF5101ED33C250027BCF8 /* wallet-7.png in Resources */,
 				84421F2C1EC6112900003D86 /* location-black-png-10.png in Resources */,
 				847165A31EC9C178005C8C83 /* history.png in Resources */,
 				84725E4A1E41DB590012FF07 /* LaunchScreen.storyboard in Resources */,
@@ -448,6 +481,7 @@
 				84B0B8271E5C111100980EF4 /* navigation.png in Resources */,
 				84421F241EC5FCA000003D86 /* email.png in Resources */,
 				84EFD3EE1E5DA602008AB4A4 /* change_password.png in Resources */,
+				84DEE57D1ED47E1F00BC2243 /* plasch_paxton.jpg in Resources */,
 				849EE5521E52D31A00F15D46 /* login.png in Resources */,
 				849EE5531E52D31A00F15D46 /* password.png in Resources */,
 				844764901EC76C680027C9A9 /* edit.png in Resources */,
@@ -458,6 +492,7 @@
 				84421F2A1EC60D7800003D86 /* versus-512.png in Resources */,
 				8409FAF21EBF64D600EC066A /* CouponTableViewCell.xib in Resources */,
 				84410F601ECB39AB00F8E82E /* key.png in Resources */,
+				844CF50F1ED33C250027BCF8 /* percent-decor-7.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,12 +656,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				844BEBF11EACE00F0014F990 /* PostViewController.swift in Sources */,
+				84B8087F1EE700D6001FF81E /* DataManager.swift in Sources */,
 				84359F111E545EFB0098CA44 /* NavigationViewController.swift in Sources */,
 				8409FAF41EBF6DCD00EC066A /* CouponDetailViewController.swift in Sources */,
 				84359F0F1E545DD70098CA44 /* NavigationTableViewController.swift in Sources */,
 				84359F091E54534D0098CA44 /* RegistrationViewController.swift in Sources */,
 				84112F581EB20B75006A9EB4 /* AddPostViewController.swift in Sources */,
 				84725E421E41DB590012FF07 /* ViewController.swift in Sources */,
+				840609671ED5ADAF002AFFA2 /* EditProfileViewController.swift in Sources */,
 				8409FAF11EBF64D500EC066A /* CouponTableViewCell.swift in Sources */,
 				84421F1E1EC5EF0E00003D86 /* CustomTextField.swift in Sources */,
 				84725E401E41DB590012FF07 /* AppDelegate.swift in Sources */,
@@ -637,7 +674,6 @@
 				84B0B8331E5C1C2900980EF4 /* FeedTableViewController.swift in Sources */,
 				84EFD3EC1E5D7E77008AB4A4 /* HistoryTableViewController.swift in Sources */,
 				844764921EC795100027C9A9 /* CommentTableViewCell.swift in Sources */,
-				84D299991E5846D300D02228 /* FeedViewController.swift in Sources */,
 				84D2999B1E585D2600D02228 /* SideMenuTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,7 +682,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8401CE181ECE2A5500BC086A /* HistoryTableViewController.swift in Sources */,
+				8401CE1C1ECE2A6000BC086A /* MyCouponsTableViewController.swift in Sources */,
+				8401CE1B1ECE2A5E00BC086A /* CouponDetailViewController.swift in Sources */,
+				8401CE161ECE2A4F00BC086A /* PostViewController.swift in Sources */,
+				8401CE131ECE2A2A00BC086A /* ViewController.swift in Sources */,
+				8401CE1E1ECE2A7200BC086A /* NavigationTableViewController.swift in Sources */,
+				8401CE211ECE2AB500BC086A /* CommentTableViewCell.swift in Sources */,
+				8401CE1F1ECE2AAF00BC086A /* PostFeedTableViewCell.swift in Sources */,
+				8401CE221ECE2AB800BC086A /* CustomTextField.swift in Sources */,
+				8401CE1D1ECE2A6A00BC086A /* SideMenuTableView.swift in Sources */,
+				8401CE191ECE2A5800BC086A /* ProfileViewControlller.swift in Sources */,
+				8401CE151ECE2A4D00BC086A /* FeedTableViewController.swift in Sources */,
+				8401CE201ECE2AB200BC086A /* CouponTableViewCell.swift in Sources */,
+				8401CE141ECE2A4500BC086A /* RegistrationViewController.swift in Sources */,
+				8401CE1A1ECE2A5A00BC086A /* CouponTableViewController.swift in Sources */,
 				84725E551E41DB590012FF07 /* WhatIsBetterTests.swift in Sources */,
+				8401CE171ECE2A5200BC086A /* AddPostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

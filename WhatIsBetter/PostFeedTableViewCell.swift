@@ -18,8 +18,8 @@ class PostFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var imageOneHistory: UIImageView!
     @IBOutlet weak var imageTwoHistory: UIImageView!
     @IBOutlet weak var progressTwo: UIProgressView!
-    @IBOutlet weak var progressOne: UIView!
-//    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var progressOne: UIProgressView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -23,6 +23,9 @@ class AddPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 48.0/255.0, green: 64.0/255.0, blue: 86.0/255.0, alpha: 1.0)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
+        navigationController?.navigationBar.tintColor = UIColor(red: 164.0/255.0, green: 205.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         // Do any additional setup after loading the view.
         setupSideMenu()
@@ -39,10 +42,7 @@ class AddPostViewController: UIViewController {
             if let JSON = response.result.value as? [String: Any] {
                 let myPostsArray = JSON["posts"] as! NSArray
                 let postsArr = myPostsArray.mutableCopy() as! NSMutableArray
-//                let postsArr = NSMutableArray(array: myPostsArray)
                 postsArr.add("http://127.0.0.1:8000/api/posts/21/")
-                print(postsArr)
-                print("-__")
                 let postArray = ["http://127.0.0.1:8000/api/posts/20/", "http://127.0.0.1:8000/api/posts/21/"] as NSArray
                 
                 for postItems in postArray {
@@ -59,8 +59,6 @@ class AddPostViewController: UIViewController {
         
         Alamofire.request("http://127.0.0.1:8000/users/current/", method: .get, encoding: URLEncoding.default, headers: headers).responseJSON { response in
             if let JSON = response.result.value as? [String: Any] {
-                print("JSON: \(JSON)")
-                print("____cur_______")
                 self.currentUser = JSON["url"] as! String
             }
         }
@@ -86,35 +84,66 @@ class AddPostViewController: UIViewController {
         SideMenuManager.menuFadeStatusBar = switchControl.isOn
     }
     
-    @IBAction func selectImageOne(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: "Choose your source", preferredStyle: UIAlertControllerStyle.alert)
+    func isCamera() -> Bool {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func createCameraPicker(picker:UIImagePickerController) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = false
+        picker.sourceType = UIImagePickerControllerSourceType.camera
+        picker.cameraCaptureMode = .photo
+        picker.modalPresentationStyle = .fullScreen
         
-        alert.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        return picker
+    }
+    
+    func createPhotoLibraryPicker(picker:UIImagePickerController) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        picker.modalPresentationStyle = .popover
+        
+        return picker
+    }
+    
+    func showImage(urlImage: String) -> UIImage {
+        let strurl1 = URL(string: urlImage)
+        let dtinternet1 = try? Data(contentsOf: strurl1!)
+        let imageView = UIImageView()
+        imageView.image = UIImage(data: dtinternet1!)
+        
+        return imageView.image!
+    }
+    
+    @IBAction func selectImageOne(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: "Выберите источник", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Камера", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             print("Camera selected")
             //Code for Camera
-            //cameraf
-            let picker = UIImagePickerController()
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
-                picker.allowsEditing = false
-                picker.sourceType = UIImagePickerControllerSourceType.camera
-                picker.cameraCaptureMode = .photo
-                picker.modalPresentationStyle = .fullScreen
-                self.present(picker,animated: true,completion: nil)
+            //camera
+            if self.isCamera() {
+                let picker = UIImagePickerController()
+                let cameraPicker = self.createCameraPicker(picker: picker)
+                self.present(cameraPicker,animated: true,completion: nil)
             } else {
                 print("camera fail")
             }
         })
-        alert.addAction(UIAlertAction(title: "Photo library", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: "Галерея", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             print("Photo selected")
             //Code for Photo library
             //photolibaryss
             let picker = UIImagePickerController()
-            picker.allowsEditing = false
-            picker.sourceType = .photoLibrary
-            picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-            picker.modalPresentationStyle = .popover
-            self.present(picker, animated: true, completion: nil)
+            let photoLibraryPicker = self.createPhotoLibraryPicker(picker: picker)
+            self.present(photoLibraryPicker, animated: true, completion: nil)
             picker.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
         })
         self.present(alert, animated: true, completion: nil)
@@ -137,7 +166,7 @@ class AddPostViewController: UIViewController {
             "name" : namePost.text!,
             "description" : descriptionPost.text!,
             "author": self.currentUser,
-            ]
+        ]
         
             let imageData1 = UIImageJPEGRepresentation(photoOnePost.image!, 0.5)!
             let imageData2 = UIImageJPEGRepresentation(photoTwoPost.image!, 0.5)!
